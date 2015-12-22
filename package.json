@@ -1,0 +1,26 @@
+{
+  "name": "proxive",
+  "version": "1.0.0",
+  "description": "Proxyservice for libraries",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ldbib/proxive.git"
+  },
+  "keywords": [
+    "proxy",
+    "libraries",
+    "library"
+  ],
+  "author": "Emil Hemdal",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ldbib/proxive/issues"
+  },
+  "homepage": "https://github.com/ldbib/proxive#readme"
+}

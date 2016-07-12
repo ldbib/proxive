@@ -7,13 +7,6 @@ var fs          = require('fs');
 var path        = require('path');
 var pugGen      = require('./lib/pugGenerator.js');
 
-var config = {
-  prefix: null,
-  domainPrefixing: true,
-  domain: 'u.fabicutv.com'
-};
-
-
 function setupServer(config) {
   var unblockerConfig = {
     prefix: false,

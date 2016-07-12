@@ -7,12 +7,16 @@ var fs          = require('fs');
 var path        = require('path');
 var pugGen      = require('./lib/pugGenerator.js');
 
+var specialRedirects = require('./lib/special-redirects.js');
+
 function setupServer(config) {
   var unblockerConfig = {
     prefix: false,
     domainPrefixing: true,
     domain: config.proxyServer.domain
   };
+
+  unblockerConfig.requestMiddleware = [specialRedirects(unblockerConfig)];
 
   var unblocker = new Unblocker(unblockerConfig);
 

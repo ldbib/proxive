@@ -1,0 +1,16 @@
+{
+  "proxyServer": {
+    "domain": "example.com",
+    "port": 12345
+  },
+  "loginServer": {
+    "domain": "example.com",
+    "port": 54321
+  },
+  "mysql": {
+    "host":     "localhost",
+    "user":     "user",
+    "pass":     "password",
+    "database": "database"
+  }
+}

@@ -22,5 +22,19 @@
   "bugs": {
     "url": "https://github.com/ldbib/proxive/issues"
   },
-  "homepage": "https://github.com/ldbib/proxive#readme"
+  "homepage": "https://github.com/ldbib/proxive#readme",
+  "dependencies": {
+    "pug": "^2.0.0-beta3",
+    "unblocker": "emilhem/node-unblocker",
+    "watch": "^0.17.1"
+  },
+  "jshintConfig": {
+    "undef": true,
+    "unused": true,
+    "newcap": true,
+    "node": true,
+    "browser": false,
+    "strict": true,
+    "camelcase": true
+  }
 }

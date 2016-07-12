@@ -5,7 +5,7 @@ Proxy service utilizing a modified version of node-unblocker.
 ## Requirements
 
 * MySQL
-* Node.js > 4.2
+* Node.js > 4.4
 
 ## Copyright
 Copyright 2014-2015 Landstinget Dalarna

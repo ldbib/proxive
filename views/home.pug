@@ -1,0 +1,10 @@
+
+extends layout
+
+block content
+  div
+    form(action="/redirect" method="GET")
+      p Skriv url:en som du vill testa i rutan och tryck på Kör!
+      p NOTERA att du måste skriva http/https också! Exempel: https://www.google.com/
+      input(type="text" name="url" placeholder="URL")#url
+      input(type="submit" value="Kör!")#go

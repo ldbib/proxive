@@ -1,0 +1,23 @@
+
+extends layout
+
+block content
+  div
+    form(action="/loginWithUsername" method="POST")
+      select(name="organization")#organization
+        option(value="disabled" disabled selected) Välj organisation
+        each val in organizations.length ? organizations : [{organization_id: 'null', organization_name: 'No organization found!'}]
+          option(value=val.organization_id)=val.organization_name
+      input(type="text" name="username" placeholder="Username")#usernameU
+      input(type="password" name="password" placeholder="Password")#passwordU
+      input(type="submit" value="Login")#loginU
+  div
+    form(action="/loginWithEmail" method="POST")
+      input(type="email" name="email" placeholder="Email")#emailE
+      input(type="password" name="password" placeholder="Password")#passwordE
+      input(type="submit" value="Login")#loginE
+  footer
+    ul
+      li: a(href='/integrity') Integritetspolicy
+      li: a(href='/personal-details') Behandling av personuppgifter
+      li: a(href='/cookies') Användning av kakor (cookies)

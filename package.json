@@ -24,7 +24,11 @@
   },
   "homepage": "https://github.com/ldbib/proxive#readme",
   "dependencies": {
+    "cookies": "^0.6.1",
+    "lodash": "^4.13.1",
+    "mysql": "^2.11.1",
     "pug": "^2.0.0-beta3",
+    "randomstring": "^1.1.5",
     "unblocker": "emilhem/node-unblocker",
     "watch": "^0.17.1"
   },
@@ -35,6 +39,7 @@
     "node": true,
     "browser": false,
     "strict": true,
-    "camelcase": true
+    "camelcase": true,
+    "bitwise": true
   }
 }

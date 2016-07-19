@@ -1,16 +1,22 @@
 {
   "proxyServer": {
     "domain": "example.com",
-    "port": 12345
+    "port": 4567
   },
+  "domain": "example.com",
   "loginServer": {
     "domain": "example.com",
-    "port": 54321
+    "port": 4568
   },
   "mysql": {
     "host":     "localhost",
-    "user":     "user",
+    "user":     "proxive",
     "pass":     "password",
-    "database": "database"
-  }
+    "database": "proxive"
+  },
+  "pug": {
+    "viewDir": "../views/",
+    "pretty": true
+  },
+  "serverPrivateKey": ""
 }

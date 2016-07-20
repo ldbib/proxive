@@ -38,7 +38,7 @@ function setupServer(config) {
   var pool = mysql.createPool({
     connectionLimit:  10,
     host:             config.mysql.host,
-    port:             (config.mysql.port | 3306),
+    port:             (config.mysql.port || 3306),
     user:             config.mysql.user,
     password:         config.mysql.pass,
     database:         config.mysql.database,
@@ -85,25 +85,26 @@ function setupServer(config) {
 
     var clientCookies = new Cookies( req, res );
 
-    if(organizations.has(clientCookies.get('org')) && clientCookies.get('pw', {signed: true}) === '1337') {
-
-      req.ipToConnectWith = organizations.get(clientCookies.get('org'));
-
-      // TODO: check logincookies!
-      unblocker(req, res, function(err) {
-        // this callback will be fired for any request that unblocker does not serve
-        var headers = {'content-type': 'text/html'};
-        if (err) {
-          console.error(err.stack || err.message);
-          console.error(err);
-          res.writeHead(500, headers);
-          return res.end(config.pugGen.run['500.pug']({title: 'Ett fel hände vid hämtandet av sidan!',
+    if(req.cookies.get('login')) {
+      var user = config.users.validateHmac(req.cookies.get('login'));
+      if(user) {
+        // TODO: get user org and IP to connect with proxy
+        req.ipToConnectWith = organizations.get(clientCookies.get('org'));
+        unblocker(req, res, function(err) {
+          // this callback will be fired for any request that unblocker does not serve
+          var headers = {'content-type': 'text/html'};
+          if (err) {
+            console.error(err.stack || err.message);
+            console.error(err);
+            res.writeHead(500, headers);
+            return res.end(config.pugGen.run['500.pug']({title: 'Ett fel hände vid hämtandet av sidan!',
+              message: 'Ett fel inträffade! Är du säker på att adressen ska fungera? Kontakta i så fall emil.hemdal@ltdalarna.se'}));
+          }
+          res.writeHead(404, headers);
+          return res.end(config.pugGen.run['404.pug']({title: 'Ett fel hände vid hämtandet av sidan!',
             message: 'Ett fel inträffade! Är du säker på att adressen ska fungera? Kontakta i så fall emil.hemdal@ltdalarna.se'}));
-        }
-        res.writeHead(404, headers);
-        return res.end(config.pugGen.run['404.pug']({title: 'Ett fel hände vid hämtandet av sidan!',
-          message: 'Ett fel inträffade! Är du säker på att adressen ska fungera? Kontakta i så fall emil.hemdal@ltdalarna.se'}));
-      });
+        });
+      }
     } else {
       res.writeHead(302, {
         location: 'http://u.fabicutv.com/'

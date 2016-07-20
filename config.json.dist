@@ -18,5 +18,7 @@
     "viewDir": "../views/",
     "pretty": true
   },
-  "serverPrivateKey": ""
+  "serverPrivateKey": "",
+  "publicSalt": "salt",
+  "development": false
 }

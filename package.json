@@ -25,6 +25,7 @@
   "homepage": "https://github.com/ldbib/proxive#readme",
   "dependencies": {
     "cookies": "^0.6.1",
+    "debug": "^2.2.0",
     "lodash": "^4.13.1",
     "mysql": "^2.11.1",
     "pug": "^2.0.0-beta3",

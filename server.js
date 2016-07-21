@@ -32,7 +32,6 @@ var qs            = require('querystring');
 var url           = require('url');
 var path          = require('path');
 
-
 function setupServer(config) {
 
   var pool = mysql.createPool({
@@ -61,6 +60,9 @@ function setupServer(config) {
   });
 
   config.mysql = pool;
+
+  config.redis = require("redis");
+  config.redisClient = redis.createClient(config.redisConfig);
 
   config.organizations = require('./lib/organizations.js')(config);
   config.users = require('./lib/users.js')(config);

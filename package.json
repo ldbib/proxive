@@ -30,6 +30,7 @@
     "mysql": "^2.11.1",
     "pug": "^2.0.0-beta3",
     "randomstring": "^1.1.5",
+    "redis": "^2.6.2",
     "unblocker": "emilhem/node-unblocker",
     "watch": "^0.17.1"
   },

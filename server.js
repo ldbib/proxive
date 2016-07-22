@@ -85,26 +85,49 @@ function setupServer(config) {
   // Proxy server
   http.createServer(function(req, res) {
 
-    var clientCookies = new Cookies( req, res );
+    req.cookies = new Cookies( req, res );
 
     if(req.cookies.get('login')) {
-      var user = config.users.validateHmac(req.cookies.get('login'));
-      if(user) {
-        // TODO: get user org and IP to connect with proxy
-        req.ipToConnectWith = organizations.get(clientCookies.get('org'));
-        unblocker(req, res, function(err) {
-          // this callback will be fired for any request that unblocker does not serve
-          var headers = {'content-type': 'text/html'};
-          if (err) {
-            console.error(err.stack || err.message);
+      var cookieInfo = config.users.validateHmac(req.cookies.get('login'));
+      if(cookieInfo) {
+        config.users.validateSession(cookieInfo.user, cookieInfo.data, function(err) {
+          if(err) {
             console.error(err);
-            res.writeHead(500, headers);
-            return res.end(config.pugGen.run['500.pug']({title: 'Ett fel hände vid hämtandet av sidan!',
-              message: 'Ett fel inträffade! Är du säker på att adressen ska fungera? Kontakta i så fall emil.hemdal@ltdalarna.se'}));
+            if(err === 'invalid-user' || err === 'no-user') {
+              res.writeHead(302, {
+                location: 'http://u.fabicutv.com/'
+              });
+              return res.end();
+            } else {
+              res.writeHead(500, {'content-type': 'text/html'});
+              return res.end(config.pugGen.run['500.pug']({title: 'Ett fel inträffade vid valideringen av inloggningsuppgifterna!',
+                message: 'Prova att ladda om sidan om en liten stund.'}));
+            }
           }
-          res.writeHead(404, headers);
-          return res.end(config.pugGen.run['404.pug']({title: 'Ett fel hände vid hämtandet av sidan!',
-            message: 'Ett fel inträffade! Är du säker på att adressen ska fungera? Kontakta i så fall emil.hemdal@ltdalarna.se'}));
+          // TODO: get user org and IP to connect with proxy
+           config.organizations.getConnectIp(cookieInfo.user, function(err, ip) {
+            if(err) {
+              console.error(err);
+              res.writeHead(500, {'content-type': 'text/html'});
+              return res.end(config.pugGen.run['500.pug']({title: 'Ett fel inträffade vid valideringen av inloggningsuppgifterna!',
+                message: 'Prova att ladda om sidan om en liten stund.'}));
+            }
+            req.ipToConnectWith = ip;
+            unblocker(req, res, function(err) {
+              // this callback will be fired for any request that unblocker does not serve
+              var headers = {'content-type': 'text/html'};
+              if (err) {
+                console.error(err.stack || err.message);
+                console.error(err);
+                res.writeHead(500, headers);
+                return res.end(config.pugGen.run['500.pug']({title: 'Ett fel hände vid hämtandet av sidan!',
+                  message: 'Ett fel inträffade! Är du säker på att adressen ska fungera? Kontakta i så fall emil.hemdal@ltdalarna.se'}));
+              }
+              res.writeHead(404, headers);
+              return res.end(config.pugGen.run['404.pug']({title: 'Ett fel hände vid hämtandet av sidan!',
+                message: 'Ett fel inträffade! Är du säker på att adressen ska fungera? Kontakta i så fall emil.hemdal@ltdalarna.se'}));
+            });
+          });
         });
       }
     } else {

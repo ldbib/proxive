@@ -62,7 +62,7 @@ function setupServer(config) {
   config.mysql = pool;
 
   config.redis = require("redis");
-  config.redisClient = redis.createClient(config.redisConfig);
+  config.redisClient = config.redis.createClient(config.redisConfig);
 
   config.organizations = require('./lib/organizations.js')(config);
   config.users = require('./lib/users.js')(config);

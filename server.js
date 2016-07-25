@@ -75,7 +75,8 @@ function setupServer(config) {
   var unblockerConfig = {
     prefix: false,
     domainPrefixing: true,
-    domain: config.proxyServer.domain
+    domain: config.proxyServer.domain,
+    specialRedirects: config.specialRedirects
   };
 
   unblockerConfig.requestMiddleware = [require('./lib/special-redirects.js')(unblockerConfig)];

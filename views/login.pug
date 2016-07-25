@@ -10,11 +10,13 @@ block content
           option(value=val.organization_id)=val.organization_name
       input(type="text" name="username" placeholder="Username")#usernameU
       input(type="password" name="password" placeholder="Password")#passwordU
+      input(type="hidden" name="redirectUrl" value=redirect)
       input(type="submit" value="Login")#loginU
   div
     form(action="/loginWithEmail" method="POST")
       input(type="email" name="email" placeholder="Email")#emailE
       input(type="password" name="password" placeholder="Password")#passwordE
+      input(type="hidden" name="redirectUrl" value=redirect)
       input(type="submit" value="Login")#loginE
   footer
     ul

@@ -59,6 +59,8 @@ function setupServer(config) {
     });
   });
 
+  config.getRealUrl = Unblocker.getRealUrlPrefixed({domain: config.proxyServer.domain});
+
   config.mysql = pool;
 
   config.redis = require("redis");
@@ -96,7 +98,7 @@ function setupServer(config) {
             console.error(err);
             if(err === 'invalid-user' || err === 'no-user') {
               res.writeHead(302, {
-                location: (config.https ? 'https://' : 'http://') + config.loginServer.domain
+                location: (config.https ? 'https://' : 'http://') + config.loginServer.domain + '/?redirect=' + encodeURIComponent(config.getRealUrl(req.headers.host, req.url))
               });
               return res.end();
             } else {
@@ -130,13 +132,13 @@ function setupServer(config) {
             });
           });
         });
+        return;
       }
-    } else {
-      res.writeHead(302, {
-        location: (config.https ? 'https://' : 'http://') + config.loginServer.domain
-      });
-      res.end();
     }
+    res.writeHead(302, {
+      location: (config.https ? 'https://' : 'http://') + config.loginServer.domain + '/?redirect=' + encodeURIComponent(config.getRealUrl(req.headers.host, req.url))
+    });
+    res.end();
   }).listen(config.proxyServer.port, '127.0.0.1');
 
   // Loginserver

@@ -96,7 +96,7 @@ function setupServer(config) {
             console.error(err);
             if(err === 'invalid-user' || err === 'no-user') {
               res.writeHead(302, {
-                location: (config.https ? 'https://' : 'http://') + config.loginServer.domain;
+                location: (config.https ? 'https://' : 'http://') + config.loginServer.domain
               });
               return res.end();
             } else {
@@ -133,7 +133,7 @@ function setupServer(config) {
       }
     } else {
       res.writeHead(302, {
-        location: (config.https ? 'https://' : 'http://') + config.loginServer.domain;
+        location: (config.https ? 'https://' : 'http://') + config.loginServer.domain
       });
       res.end();
     }

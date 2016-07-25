@@ -25,6 +25,7 @@
   "serverPrivateKey": "",
   "publicSalt": "salt",
   "development": false,
+  "https": true,
   "specialRedirects": [
     ["http://example.com", "http://example.org"]
   ]

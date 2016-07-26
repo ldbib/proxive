@@ -102,7 +102,7 @@ function setupServer(config) {
               });
               return res.end();
             } else {
-              res.writeHead(500, {'content-type': 'text/html'});
+              res.writeHead(500, {'content-type': 'text/html; charset=utf-8'});
               return res.end(config.pugGen.run['500.pug']({title: 'Ett fel inträffade vid valideringen av inloggningsuppgifterna!',
                 message: 'Prova att ladda om sidan om en liten stund.'}));
             }
@@ -111,14 +111,14 @@ function setupServer(config) {
            config.organizations.getConnectIp(cookieInfo.user, function(err, ip) {
             if(err) {
               console.error(err);
-              res.writeHead(500, {'content-type': 'text/html'});
+              res.writeHead(500, {'content-type': 'text/html; charset=utf-8'});
               return res.end(config.pugGen.run['500.pug']({title: 'Ett fel inträffade vid valideringen av inloggningsuppgifterna!',
                 message: 'Prova att ladda om sidan om en liten stund.'}));
             }
             req.ipToConnectWith = ip;
             unblocker(req, res, function(err) {
               // this callback will be fired for any request that unblocker does not serve
-              var headers = {'content-type': 'text/html'};
+              var headers = {'content-type': 'text/html; charset=utf-8'};
               if (err) {
                 console.error(err.stack || err.message);
                 console.error(err);

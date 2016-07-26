@@ -149,7 +149,10 @@ function setupServer(config) {
     } else if(req.method === 'GET') {
       get(req, res);
     } else {
-      req.end('Method not supported!');
+      res.writeHead(405, {
+        'content-type': 'text/plain; charset=utf-8'
+      });
+      res.end('Method not supported!');
     }
   }).listen(config.loginServer.port, '127.0.0.1');
 }

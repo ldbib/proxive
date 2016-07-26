@@ -7,6 +7,7 @@ Proxy service utilizing a modified version of node-unblocker.
 * MariaDB/MySQL
 * Node.js > 4.4
 * Redis
+* Sass
 
 ## Setup
 

@@ -6,7 +6,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "sass": "sass ./public/scss/style.scss ./public/css/style.css",
+    "start": "npm run sass; node server.js"
   },
   "repository": {
     "type": "git",

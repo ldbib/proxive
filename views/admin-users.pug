@@ -23,6 +23,7 @@ block content
                   if user.locked
                     span.lockedBadge
     div.twothirds.padded#userEdit
+      input(type='hidden' name='id')#id
       label
         | Förnamn
         input(type='text' name='fname' autocomplete='off')#fname
@@ -59,6 +60,9 @@ block content
       label
         input(type='checkbox' name='lock' autocomplete='off')#lock
         | Lås
+      div
+        button(type='button')#saveUserDetails Spara
+        button(type='button')#deleteUser Ta bort
 
   script(defer='defer' src='/js/jquery-3.1.0.min.js')
   script(defer='defer' src='/js/admin.js')

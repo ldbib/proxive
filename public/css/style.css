@@ -9,6 +9,7 @@ html, body {
   border: 0; }
 
 nav {
+  position: relative;
   z-index: 10; }
   nav ul {
     width: 100%;

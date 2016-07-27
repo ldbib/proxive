@@ -1,0 +1,8 @@
+nav
+  ul
+    li: a(href='/') Startsidan
+    li: a(href='/admin' class=(currentPage === 'admin' ? 'active' : '')) Admin
+    li: a(href='/admin/users' class=(currentPage === 'users' ? 'active' : '')) Användare
+    li: a(href='/admin/settings' class=(currentPage === 'settings' ? 'active' : '')) Inställningar
+    li: a(href='/admin/logging' class=(currentPage === 'logging' ? 'active' : '')) Loggar
+    li: a(href='/admin/statistics' class=(currentPage === 'statistics' ? 'active' : '')) Statistik

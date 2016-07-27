@@ -2,5 +2,12 @@
 extends layout
 
 block content
-  div
+  - var currentPage = 'admin'
+  include ./includes/admin-navbar.pug
+
+  div.padded
     h2 Admin
+    p Klicka dig vidare med någon av länkarna ovan.
+
+  script(defer='defer' src='/js/jquery-3.1.0.min.js')
+  script(defer='defer' src='/js/admin.js')

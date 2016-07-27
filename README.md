@@ -33,3 +33,6 @@ AGPLv3 - See LICENSE for more details
 ## Author
 
 * Emil Hemdal
+
+## Icons
+Read here: [/public/icons/README.md](/public/icons/README.md)

@@ -30,6 +30,25 @@ nav {
         nav ul li a.active, nav ul li a:hover {
           text-decoration: underline; }
 
+table {
+  width: 100%;
+  border-collapse: collapse; }
+  table tr {
+    border-bottom: 1px solid #000; }
+
+.adminBadge, .lockedBadge {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: relative;
+  top: 1px; }
+
+.adminBadge {
+  background: url(/icons/star.png); }
+
+.lockedBadge {
+  background: url(/icons/lock.png); }
+
 .padded {
   padding: 15px; }
 
@@ -47,11 +66,21 @@ nav {
   float: left;
   height: 100%; }
 
-select {
-  width: 100%; }
+.twothirds {
+  width: 66.66%;
+  float: left;
+  height: 100%; }
+
+select, input[type=text], input[type=email], input[type=password] {
+  width: 100%;
+  margin-bottom: 5px; }
+
+#userEdit {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden; }
 
 #userList {
-  max-height: 100%;
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden; }

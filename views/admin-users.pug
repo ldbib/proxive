@@ -9,10 +9,56 @@ block content
     div.third
       div#userFilter
       div#userList
-        ul
-          li(id='user-new') Ny användare
-          for user in users
-            li(id='user-'+user.id)=user.fname+' '+user.lname
+        table
+          tbody
+            tr
+              td(colspan='3' id='user-new') Ny användare
+            for user in users
+              tr(id='user-'+user.id)
+                td=user.fname+' '+user.lname
+                td=user.workplace
+                td
+                  if user.admin > 0
+                    span.adminBadge
+                  if user.locked
+                    span.lockedBadge
+    div.twothirds.padded#userEdit
+      label
+        | Förnamn
+        input(type='text' name='fname' autocomplete='off')#fname
+      label
+        | Efternamn
+        input(type='text' name='fname' autocomplete='off')#fname
+      label
+        | Användarnamn
+        input(type='text' name='username' autocomplete='off')#username
+      label
+        | Lösenord (ändras inte om fältet lämnas tom)
+        input(type='password' name='password' autocomplete='off')#password
+      label
+        | Arbetsplats
+        input(type='text' name='workplace' autocomplete='off')#workplace
+      label
+        | Organisation
+        select(name='organization' autocomplete='off')#organization
+      label
+        | E-post
+        input(type='email' name='email' autocomplete='off')#email
+      label
+        | Privat e-post
+        input(type='email' name='pemail' autocomplete='off')#pemail
+      label
+        | Skapad
+        input(type='text' name='created' autocomplete='off' readonly='readonly')#created
+      label
+        | Uppdaterad
+        input(type='text' name='updated' autocomplete='off' readonly='readonly')#updated
+      label
+        input(type='checkbox' name='admin' autocomplete='off')#admin
+        | Admin
+      label
+        input(type='checkbox' name='lock' autocomplete='off')#lock
+        | Lås
 
   script(defer='defer' src='/js/jquery-3.1.0.min.js')
   script(defer='defer' src='/js/admin.js')

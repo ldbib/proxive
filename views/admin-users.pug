@@ -1,0 +1,18 @@
+
+extends layout
+
+block content
+  - var currentPage = 'users'
+  include ./includes/admin-navbar.pug
+
+  div.fullPage
+    div.third
+      div#userFilter
+      div#userList
+        ul
+          li(id='user-new') Ny användare
+          for user in users
+            li(id='user-'+user.id)=user.fname+' '+user.lname
+
+  script(defer='defer' src='/js/jquery-3.1.0.min.js')
+  script(defer='defer' src='/js/admin.js')

@@ -41,10 +41,10 @@ block content
         input(type='text' name='workplace' autocomplete='off')#workplace
       label
         | Organisation (fritext)
-        input(type='text' name='organizationText' autocomplete='off')#organizationText
+        input(type='text' name='organization' autocomplete='off')#organization
       label
         | Organisation
-        select(name='organization' autocomplete='off')#organization
+        select(name='organizationId' autocomplete='off')#organizationId
           for organization in organizations
             option(value=organization.organization_id)=organization.organization_name
       label

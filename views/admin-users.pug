@@ -11,8 +11,8 @@ block content
       div#userList
         table
           tbody
-            tr
-              td(colspan='3' id='user-new') Ny användare
+            tr(id='user-new')
+              td(colspan='3') Ny användare
             for user in users
               tr(id='user-'+user.id)
                 td=user.fname+' '+user.lname
@@ -29,7 +29,7 @@ block content
         input(type='text' name='fname' autocomplete='off')#fname
       label
         | Efternamn
-        input(type='text' name='fname' autocomplete='off')#fname
+        input(type='text' name='lname' autocomplete='off')#lname
       label
         | Användarnamn
         input(type='text' name='username' autocomplete='off')#username
@@ -40,8 +40,13 @@ block content
         | Arbetsplats
         input(type='text' name='workplace' autocomplete='off')#workplace
       label
+        | Organisation (fritext)
+        input(type='text' name='organizationText' autocomplete='off')#organizationText
+      label
         | Organisation
         select(name='organization' autocomplete='off')#organization
+          for organization in organizations
+            option(value=organization.organization_id)=organization.organization_name
       label
         | E-post
         input(type='email' name='email' autocomplete='off')#email

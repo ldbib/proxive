@@ -88,7 +88,7 @@ function setupServer(config) {
   // Proxy server
   http.createServer(function(req, res) {
 
-    req.cookies = new Cookies( req, res );
+    res.cookies = req.cookies = new Cookies( req, res );
 
     if(req.cookies.get('login')) {
       var cookieInfo = config.users.validateHmac(req.cookies.get('login'));
@@ -143,7 +143,7 @@ function setupServer(config) {
 
   // Loginserver
   http.createServer(function(req, res) {
-    req.cookies = new Cookies( req, res );
+    res.cookies = req.cookies = new Cookies( req, res );
     if(req.method === 'POST') {
       post(req, res);
     } else if(req.method === 'GET') {

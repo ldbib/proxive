@@ -20,10 +20,11 @@
   });
 
   function createCover(text, time) {
-    $('body').prepend('<div class="cover"></div><div class="coverText"></div>');
+    $('body').prepend('<div class="cover"></div><div class="coverText"><div></div></div>');
     $('.cover, .coverText').hide();
-    $('body').children('.coverText').text(text);
+    $('body').find('.coverText div').text(text);
     $('.cover, .coverText').fadeIn(200);
+    $('.coverText').css('height', $('.coverText div').outerHeight() + 'px');
     if(time !== false) {
       setTimeout(function() {
         $('.cover, .coverText').fadeOut(200, function() {
@@ -32,9 +33,9 @@
       }, (time ? time : 2000));
     } else {
       $('body').append('<div class="coverTextSmall">Clicka var som helst för att stänga!</div>');
-      $('.cover, .coverText').on('click', function() {
-        $('.cover, .coverText').off('click');
-        $('.cover, .coverText').fadeOut(200, function() {
+      $('.cover, .coverText, .coverTextSmall').on('click', function() {
+        $('.cover, .coverText, .coverTextSmall').off('click');
+        $('.cover, .coverText, .coverTextSmall').fadeOut(200, function() {
           this.remove();
         });
       });
@@ -74,7 +75,7 @@
           }
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
-          alert('Någonting gick snett. Försök igen lite senare.');
+          createCover('Någonting gick snett. Försök igen lite senare.', false);
           if(console && console.log) {
             console.log(errorThrown);
             console.log(jqXHR);
@@ -83,17 +84,25 @@
       }
     });
     $('#saveUserDetails').on('click', function() {
+      var data = {};
+      $('#userEdit').find('input, select').not('input[type=checkbox]').each(function() {
+        data[this.id] = $(this).val();
+      });
+      $('#userEdit').find('input[type=checkbox]').each(function() {
+        data[this.id] = $(this).prop('checked');
+      });
+      console.log(data);
       $.ajax({
         method: 'POST',
         url: '/admin/userData',
         dataType: 'json',
-        data: ''
+        data: data
       })
       .done(function() {
         createCover('Användare sparad!', 2000);
       })
       .fail(function(jqXHR, textStatus, errorThrown) {
-        alert('Någonting gick snett. Försök igen lite senare. Prova att ladda om sidan.');
+        createCover('Någonting gick snett. Försök igen lite senare. Prova att ladda om sidan.', false);
         if(console && console.log) {
           console.log(errorThrown);
           console.log(jqXHR);

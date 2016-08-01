@@ -57,6 +57,7 @@
           }
         })
         .done(function(data) {
+          $('#password').val('');
           for(var key in data) {
             if(key === 'organizationId') {
               $('#organizationId').find('option').prop('selected', false);

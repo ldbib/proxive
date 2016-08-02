@@ -72,7 +72,7 @@ table {
   float: left;
   height: 100%; }
 
-select, input[type=text], input[type=email], input[type=password], textarea {
+select, input[type=text], input[type=email], input[type=password], textarea, div.mce-tinymce {
   width: 100%;
   margin-bottom: 5px; }
 

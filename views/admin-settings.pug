@@ -37,9 +37,13 @@ block content
       div#settingsEmail
         h2 E-post
         h3 Godkänd användare meddelande
-        input(name='userEmailTitle' type='text' value=organization.userEmailTitle)#userEmailTitle
-        textarea(name='userEmail' type='text')#userEmail=organization.userEmail
-        button(type='button')#submitEmailSettings
+        label
+          | E-posttitel
+          input(name='userEmailTitle' type='text' value=organization.userEmailTitle)#userEmailTitle
+        label
+          | E-postmeddelande
+          textarea(name='userEmail' type='text')#userEmail=organization.userEmail
+        button(type='button')#submitEmailSettings Spara e-postinställningar
       div#settingsWIU
         | WIU
       div#settingsWhiteList

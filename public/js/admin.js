@@ -1,4 +1,5 @@
 /* jshint browser: true, node: false, jquery: true */
+/* global tinymce */
 
 (function($){
   'use strict';
@@ -10,7 +11,7 @@
   // Timeout used to ensure that everything is ready before we do the resize.
   setTimeout(resizeFullPage, 1);
   var timeoutStarted = false;
-  $(window).on('resize', function(event) {
+  $(window).on('resize', function() {
     if(!timeoutStarted) {
       timeoutStarted = true;
       setTimeout(function() {
@@ -54,6 +55,29 @@
       toolbar: 'undo redo | styleselect forecolor backcolor | '+
         'bold underline italic | alignleft aligncenter alignright alignjustify | '+
         'bullist numlist outdent indent | link image'
+    });
+    $('#saveEmailSettings').on('click', function() {
+      var data = {
+        id: $('#id').val(),
+        userEmailTitle: $('#userEmailTitle').val(),
+        userEmail: tinymce.get('userEmail').getContent()
+      };
+      $.ajax({
+        method: 'POST',
+        url: '/admin/emailSettings',
+        dataType: 'json',
+        data: data
+      })
+      .done(function() {
+        createCover('Inställningar sparade!', 2000);
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        createCover('Någonting gick snett. Försök igen lite senare. Prova att ladda om sidan.', false);
+        if(console && console.log) {
+          console.log(errorThrown);
+          console.log(jqXHR);
+        }
+      });
     });
     $('#settingsArea').children().hide();
     $('#settingsPicker').find('tr').on('click', function() {

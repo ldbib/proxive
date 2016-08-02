@@ -17,9 +17,23 @@ block content
             td Walk In Use
           tr(data-target='#settingsWhiteList')
             td Vitlista
-    div.twothirds#settingsArea
+    div.twothirds.padded#settingsArea
       div#settingsOrganization
-        | Organization
+        label
+          | Organisationsnamn
+          input(name='organizationName' type='text' value=organization.name required)#organizationName
+        label
+          | IP adressen allokerad till er organisation (registrera denna hos förlagen)
+          input(name='organizationAssignedIPv4' type='text' value=organization.assignedIPv4 readonly='readonly')#organizationAssignedIPv4
+        label
+          | Organisationens/Bibliotekets e-postadress (meddelanden från proxyn skickas till denna e-postadress)
+          input(name='organizationEmail' type='email' value=organization.email required)#organizationEmail
+        label
+          | Er organisations PubMed id (otool)
+          input(name='organizationPubmedOtool' type='text' value=organization.pubmedOtool)#organizationPubmedOtool
+        label
+          | Användaravtal
+          textarea(name='organizationUserAgreement' id='organizationUserAgreement')=organization.userAgreement
       div#settingsEmail
         | Email
       div#settingsWIU

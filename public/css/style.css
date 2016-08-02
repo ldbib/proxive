@@ -72,12 +72,17 @@ table {
   float: left;
   height: 100%; }
 
-select, input[type=text], input[type=email], input[type=password] {
+select, input[type=text], input[type=email], input[type=password], textarea {
   width: 100%;
   margin-bottom: 5px; }
 
 input[type=checkbox], #userEdit button {
   margin-bottom: 12px; }
+
+textarea {
+  resize: vertical;
+  min-height: 6em;
+  height: 6em; }
 
 #userEdit {
   height: 100%;

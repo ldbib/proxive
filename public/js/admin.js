@@ -44,6 +44,17 @@
   }
 
   if($('#settingsPicker').length === 1) {
+    tinymce.init({
+      selector: '#userEmail',
+      language: 'sv_SE',
+      height: 300,
+      plugins: [
+        'autolink code contextmenu image insertdatetime link table textcolor'
+      ],
+      toolbar: 'undo redo | styleselect forecolor backcolor | '+
+        'bold underline italic | alignleft aligncenter alignright alignjustify | '+
+        'bullist numlist outdent indent | link image'
+    });
     $('#settingsArea').children().hide();
     $('#settingsPicker').find('tr').on('click', function() {
       $('#settingsArea').children().hide();

@@ -35,11 +35,17 @@ block content
           | Användaravtal
           textarea(name='organizationUserAgreement' id='organizationUserAgreement')=organization.userAgreement
       div#settingsEmail
-        | Email
+        h2 E-post
+        h3 Godkänd användare meddelande
+        input(name='userEmailTitle' type='text' value=organization.userEmailTitle)#userEmailTitle
+        textarea(name='userEmail' type='text')#userEmail=organization.userEmail
+        button(type='button')#submitEmailSettings
       div#settingsWIU
         | WIU
       div#settingsWhiteList
         | Whitelist
 
   script(defer='defer' src='/js/jquery-3.1.0.min.js')
+  script(defer='defer' src='/js/tinymce/tinymce.min.js')
+  script(defer='defer' src='/js/tinymce/jquery.tinymce.min.js')
   script(defer='defer' src='/js/admin.js')

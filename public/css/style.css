@@ -84,19 +84,10 @@ textarea {
   min-height: 6em;
   height: 6em; }
 
-#userEdit {
+#userEdit, #settingsArea {
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden; }
-
-#userList {
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden; }
-  #userList ul {
-    list-style: none;
-    padding: 0;
-    margin: 0; }
 
 #userList td, #settingsPicker td {
   padding: 5px 2px; }

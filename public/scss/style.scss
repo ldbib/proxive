@@ -103,23 +103,10 @@ textarea {
   height: 6em;
 }
 
-#userEdit {
+#userEdit, #settingsArea {
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-}
-#userList {
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    li {
-
-    }
-  }
 }
 
 #userList, #settingsPicker {

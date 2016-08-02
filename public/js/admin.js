@@ -7,7 +7,8 @@
   function resizeFullPage() {
     fullPage.css('padding-top', topBar.outerHeight() + 'px');
   }
-  resizeFullPage();
+  // Timeout used to ensure that everything is ready before we do the resize.
+  setTimeout(resizeFullPage, 1);
   var timeoutStarted = false;
   $(window).on('resize', function(event) {
     if(!timeoutStarted) {

@@ -18,32 +18,33 @@ block content
           tr(data-target='#settingsWhiteList')
             td Vitlista
     div.twothirds.padded#settingsArea
+      input(name='id' type='hidden' value=organization.id autocomplete='off')#id
       div#settingsOrganization
         label
           | Organisationsnamn
-          input(name='organizationName' type='text' value=organization.name required)#organizationName
+          input(name='organizationName' type='text' value=organization.name required autocomplete='off')#organizationName
         label
           | IP adressen allokerad till er organisation (registrera denna hos förlagen)
-          input(name='organizationAssignedIPv4' type='text' value=organization.assignedIPv4 readonly='readonly')#organizationAssignedIPv4
+          input(name='organizationAssignedIPv4' type='text' value=organization.assignedIPv4 readonly='readonly' autocomplete='off')#organizationAssignedIPv4
         label
           | Organisationens/Bibliotekets e-postadress (meddelanden från proxyn skickas till denna e-postadress)
-          input(name='organizationEmail' type='email' value=organization.email required)#organizationEmail
+          input(name='organizationEmail' type='email' value=organization.email required autocomplete='off')#organizationEmail
         label
           | Er organisations PubMed id (otool)
-          input(name='organizationPubmedOtool' type='text' value=organization.pubmedOtool)#organizationPubmedOtool
+          input(name='organizationPubmedOtool' type='text' value=organization.pubmedOtool autocomplete='off')#organizationPubmedOtool
         label
           | Användaravtal
-          textarea(name='organizationUserAgreement' id='organizationUserAgreement')=organization.userAgreement
+          textarea(name='organizationUserAgreement' id='organizationUserAgreement' autocomplete='off')=organization.userAgreement
       div#settingsEmail
         h2 E-post
         h3 Godkänd användare meddelande
         label
           | E-posttitel
-          input(name='userEmailTitle' type='text' value=organization.userEmailTitle)#userEmailTitle
+          input(name='userEmailTitle' type='text' value=organization.userEmailTitle autocomplete='off')#userEmailTitle
         label
           | E-postmeddelande
-          textarea(name='userEmail' type='text')#userEmail=organization.userEmail
-        button(type='button')#submitEmailSettings Spara e-postinställningar
+          textarea(name='userEmail' type='text' autocomplete='off')#userEmail=organization.userEmail
+        button(type='button')#saveEmailSettings Spara e-postinställningar
       div#settingsWIU
         | WIU
       div#settingsWhiteList

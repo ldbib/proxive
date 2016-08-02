@@ -79,6 +79,31 @@
         }
       });
     });
+    $('#saveOrganizationSettings').on('click', function() {
+      var data = {
+        id: $('#id').val(),
+        name: $('#organizationName').val(),
+        email: $('#organizationEmail').val(),
+        pubmedOtool: $('#organizationPubmedOtool').val(),
+        userAgreement: $('#organizationUserAgreement').val()
+      };
+      $.ajax({
+        method: 'POST',
+        url: '/admin/organizationSettings',
+        dataType: 'json',
+        data: data
+      })
+      .done(function() {
+        createCover('Inställningar sparade!', 2000);
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        createCover('Någonting gick snett. Försök igen lite senare. Prova att ladda om sidan.', false);
+        if(console && console.log) {
+          console.log(errorThrown);
+          console.log(jqXHR);
+        }
+      });
+    });
     $('#settingsArea').children().hide();
     $('#settingsPicker').find('tr').on('click', function() {
       $('#settingsArea').children().hide();

@@ -112,7 +112,6 @@
       $('#userEdit').find('input[type=checkbox]').each(function() {
         data[this.id] = $(this).prop('checked');
       });
-      console.log(data);
       $.ajax({
         method: 'POST',
         url: '/admin/userData',

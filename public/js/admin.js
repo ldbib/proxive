@@ -42,6 +42,14 @@
     }
   }
 
+  if($('#settingsPicker').length === 1) {
+    $('#settingsArea').children().hide();
+    $('#settingsPicker').find('tr').on('click', function() {
+      $('#settingsArea').children().hide();
+      $($(this).attr('data-target')).show();
+    });
+  }
+
   if($('#userEdit').length === 1) {
     $('#userList').on('click', 'tr', function() {
       if(this.id === 'user-new') {

@@ -1,0 +1,31 @@
+
+extends layout
+
+block content
+  - var currentPage = 'settings'
+  include ./includes/admin-navbar.pug
+
+  div.fullPage
+    div.third
+      table#settingsPicker
+        tbody
+          tr(data-target='#settingsOrganization')
+            td Organisation
+          tr(data-target='#settingsEmail')
+            td E-post
+          tr(data-target='#settingsWIU')
+            td Walk In Use
+          tr(data-target='#settingsWhiteList')
+            td Vitlista
+    div.twothirds#settingsArea
+      div#settingsOrganization
+        | Organization
+      div#settingsEmail
+        | Email
+      div#settingsWIU
+        | WIU
+      div#settingsWhiteList
+        | Whitelist
+
+  script(defer='defer' src='/js/jquery-3.1.0.min.js')
+  script(defer='defer' src='/js/admin.js')

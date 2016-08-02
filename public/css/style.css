@@ -93,6 +93,9 @@ input[type=checkbox], #userEdit button {
     padding: 0;
     margin: 0; }
 
+#userList td, #settingsPicker td {
+  padding: 5px 2px; }
+
 .cover, .coverText, .coverTextSmall {
   top: 0px;
   left: 0px;

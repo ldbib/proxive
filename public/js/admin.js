@@ -223,7 +223,7 @@
               $('#organizationId').find('option').prop('selected', false);
               $('#organizationId').find('option[value='+data[key]+']').prop('selected', true);
             } else if(['created', 'updated'].indexOf(key) !== -1) {
-              if(data[key] === 0) {
+              if(!data[key]) {
                 $('#'+key).val('');
               } else {
                 $('#'+key).val((new Date(data[key] * 1000)).toString());

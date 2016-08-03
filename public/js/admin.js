@@ -206,6 +206,7 @@
       if(this.id === 'user-new') {
         $('#userEdit').find('input').val('');
         $('#userEdit').find('input[type=checkbox]').prop('checked', false);
+        $('#id').val('new');
       } else {
         $.ajax({
           method: 'GET',
@@ -258,7 +259,14 @@
         data: data
       })
       .done(function() {
-        createCover('Användare sparad!', 2000);
+        if($('#id').val() === 'new') {
+          createCover('Användare skapad! Laddar om sidan!', 2000);
+          setTimeout(function() {
+            window.location = window.location;
+          }, 2200);
+        } else {
+          createCover('Användare sparad!', 2000);
+        }
       })
       .fail(function(jqXHR, textStatus, errorThrown) {
         createCover('Någonting gick snett. Försök igen lite senare. Prova att ladda om sidan.', false);

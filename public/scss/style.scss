@@ -43,8 +43,18 @@ nav {
 table {
   width: 100%;
   border-collapse: collapse;
+  margin-bottom: 5px;
   tr {
     border-bottom: 1px solid #000;
+    td {
+      padding: 5px 2px;
+    }
+    td:first-child {
+      padding: 5px 2px 5px 5px;
+    }
+    td:last-child {
+      padding: 5px 5px 5px 2px;
+    }
   }
 }
 
@@ -107,12 +117,6 @@ textarea {
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-}
-
-#userList, #settingsPicker {
-  td {
-    padding: 5px 2px;
-  }
 }
 
 .cover, .coverText, .coverTextSmall {

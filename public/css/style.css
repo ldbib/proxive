@@ -33,9 +33,16 @@ nav {
 
 table {
   width: 100%;
-  border-collapse: collapse; }
+  border-collapse: collapse;
+  margin-bottom: 5px; }
   table tr {
     border-bottom: 1px solid #000; }
+    table tr td {
+      padding: 5px 2px; }
+    table tr td:first-child {
+      padding: 5px 2px 5px 5px; }
+    table tr td:last-child {
+      padding: 5px 5px 5px 2px; }
 
 .adminBadge, .lockedBadge {
   width: 16px;
@@ -88,9 +95,6 @@ textarea {
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden; }
-
-#userList td, #settingsPicker td {
-  padding: 5px 2px; }
 
 .cover, .coverText, .coverTextSmall {
   top: 0px;

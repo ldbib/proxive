@@ -56,6 +56,17 @@
         'bold underline italic | alignleft aligncenter alignright alignjustify | '+
         'bullist numlist outdent indent | link image'
     });
+    tinymce.init({
+      selector: '#homepageHtml',
+      language: 'sv_SE',
+      height: 300,
+      plugins: [
+        'autolink code contextmenu image insertdatetime link table textcolor'
+      ],
+      toolbar: 'undo redo | styleselect forecolor backcolor | '+
+        'bold underline italic | alignleft aligncenter alignright alignjustify | '+
+        'bullist numlist outdent indent | link image'
+    });
     $('#saveEmailSettings').on('click', function() {
       var data = {
         id: $('#id').val(),
@@ -250,6 +261,52 @@
         }
       });
     });
+
+    $('#homepageType').find('input').on('click', function() {
+      var that = $(this);
+      setTimeout(function() {
+        if(that.val() === 'homepage') {
+          $('#homepageEditor').show();
+          $('#homepageUrl').hide();
+        } else {
+          $('#homepageUrl').show();
+          $('#homepageEditor').hide();
+        }
+      }, 1);
+    });
+
+    $('#saveHomepageSettings').on('click', function() {
+      var data = {
+        id: $('#id').val(),
+        directToUrl: $('#homepageType').find('input:first').is(':checked') ? 'false' : 'true',
+        directUrl: $('#directUrl').val(),
+        homepageHtml: tinymce.get('homepageHtml').getContent()
+      };
+      $.ajax({
+        method: 'POST',
+        url: '/admin/homepageSettings',
+        dataType: 'json',
+        data: data
+      })
+      .done(function() {
+        createCover('Inställningar sparade!', 2000);
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        createCover('Någonting gick snett. Försök igen lite senare. Prova att ladda om sidan.', false);
+        if(console && console.log) {
+          console.log(errorThrown);
+          console.log(jqXHR);
+        }
+      });
+    });
+
+    if($('#homepageType').find('input:first').is(':checked')) {
+      $('#homepageEditor').show();
+      $('#homepageUrl').hide();
+    } else {
+      $('#homepageUrl').show();
+      $('#homepageEditor').hide();
+    }
     $('#settingsArea').children().hide();
     $('#settingsPicker').find('tr').on('click', function() {
       $('#settingsArea').children().hide();

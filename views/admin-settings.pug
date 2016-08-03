@@ -17,6 +17,8 @@ block content
             td Walk In Use
           tr(data-target='#settingsWhiteList')
             td Vitlista
+          tr(data-target='#settingsHomepage')
+            td Hemsidan/vidarebefordring
     div.twothirds.padded#settingsArea
       input(name='id' type='hidden' value=organization.id autocomplete='off')#id
       div#settingsOrganization
@@ -94,6 +96,25 @@ block content
               td URL
               td Funktion
           tbody
+      div#settingsHomepage
+        h2 Hemsidan/vidarebefordring
+        div#homepageType
+          label
+            input(name='homepageType' type='radio' value='homepage' checked=(organization.directToUrl ? '' : 'checked'))
+            | Hemside-editorn
+          label
+            input(name='homepageType' type='radio' value='directUrl' checked=(organization.directToUrl ? 'checked' : ''))
+            | Gå direkt till URL
+        hr
+        div#homepageEditor
+          label
+            | Hemsida
+            textarea(name='homepageHtml' type='text' autocomplete='off')#homepageHtml=organization.homepageHtml
+        div#homepageUrl
+          label
+          | Direkt URL
+          input(name='directUrl' type='text' value=organization.directUrl autocomplete='off')#directUrl
+        button(type='button')#saveHomepageSettings Spara hemsideinställningar
 
   script(defer='defer' src='/js/jquery-3.1.0.min.js')
   script(defer='defer' src='/js/tinymce/tinymce.min.js')

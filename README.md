@@ -18,9 +18,9 @@ Proxy service utilizing a modified version of node-unblocker.
 
 ## Todo
 
-* User management
-* Check security of cookies
-* Cookie respawn for browsing after four hours
+* Check that connection.release() is used correctly
+* Editing of "homepage"
+* Searching/filtering users in admin panel
 * Captcha (VisualCaptcha?) (ReCAPTCHA works horrible on poor/insecure intranets (like ours...))
 * Tests
 

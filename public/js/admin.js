@@ -174,7 +174,8 @@
         url: $('#wiuSearchBlockUrl').val()
       };
       $.ajax({
-        method: 'POST',
+        method: 'GET',
+        cache: false,
         url: '/admin/wiuSearchBlock',
         dataType: 'json',
         data: data

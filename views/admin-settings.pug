@@ -47,7 +47,36 @@ block content
           textarea(name='userEmail' type='text' autocomplete='off')#userEmail=organization.userEmail
         button(type='button')#saveEmailSettings Spara e-postinställningar
       div#settingsWIU
-        | WIU
+        h2 Walk In Use
+        label
+          | IP-adresser för Walk In Use
+          input(name='wiuIps' type='text' value=organization.wiuIps autocomplete='off')#wiuIps
+        label
+          | Lösenord för Walk In Use
+          input(name='wiuPassword' type='text' value=organization.wiuPassword autocomplete='off')#wiuPassword
+        label
+          | E-postadresser att informera vid lösenordsbyte (valfritt)
+          input(name='wiuEmails' type='text' value=organization.wiuEmails autocomplete='off')#wiuEmails
+        button(type='button')#saveWiuSettings Spara WIU inställningar
+        button(type='button')#generateWiuPassword Generera nytt WIU lösenord
+        hr
+        label
+          | Walk In Use URL att blockera
+          input(name='wiuBlock' type='text' autocomplete='off')#wiuBlockUrl
+        button(type='button')#addWiuBlock Lägg till
+        hr
+        label
+          | Sök efter Walk In Use URL
+          input(name='wiuSearchBlock' type='text' autocomplete='off')#wiuSearchBlockUrl
+        button(type='button')#searchWiuBlock Sök
+        hr
+        table#wiuList
+          thead
+            tr
+              td URL
+              td Funktion
+          tbody
+
       div#settingsWhiteList
         | Whitelist
 

@@ -76,9 +76,24 @@ block content
               td URL
               td Funktion
           tbody
-
       div#settingsWhiteList
-        | Whitelist
+        h2 Vitlista
+        label
+          | URL att vitlista
+          input(name='whiteListUrl' type='text' autocomplete='off')#addWhiteListUrl
+        button(type='button')#addWhiteList Lägg till
+        hr
+        label
+          | Sök i vitlistan
+          input(name='searchWhiteListUrl' type='text' autocomplete='off')#searchWhiteListUrl
+        button(type='button')#searchWhiteList Sök
+        hr
+        table#whiteList
+          thead
+            tr
+              td URL
+              td Funktion
+          tbody
 
   script(defer='defer' src='/js/jquery-3.1.0.min.js')
   script(defer='defer' src='/js/tinymce/tinymce.min.js')

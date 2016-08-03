@@ -195,6 +195,61 @@
         }
       });
     });
+    // WhiteList
+    $('#addWhiteList').on('click', function() {
+      var data = {
+        url: $('#addWhiteListUrl').val()
+      };
+      $.ajax({
+        method: 'POST',
+        url: '/admin/addWhiteList',
+        dataType: 'json',
+        data: data
+      })
+      .done(function(data) {
+        createCover('URL '+data.domain+' tillagd!', 2000);
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR);
+        if(jqXHR.responseJSON && jqXHR.responseJSON.error === 'Url exists already!') {
+          return createCover('URLen existerar redan!', false);
+        }
+        if(jqXHR.responseJSON && jqXHR.responseJSON.error === 'Url invalid!') {
+          return createCover('URLen var felaktig!', false);
+        }
+        createCover('Någonting gick snett. Försök igen lite senare. Prova att ladda om sidan.', false);
+        if(console && console.log) {
+          console.log(errorThrown);
+          console.log(jqXHR);
+        }
+      });
+    });
+    $('#searchWhiteList').on('click', function() {
+      var data = {
+        url: $('#searchWhiteListUrl').val()
+      };
+      $.ajax({
+        method: 'GET',
+        cache: false,
+        url: '/admin/searchWhiteList',
+        dataType: 'json',
+        data: data
+      })
+      .done(function(data) {
+        var table = '', i, ii;
+        for(i = 0, ii = data.urls.length; i < ii; i++) {
+          table+= '<tr><td>'+data.urls[i]+'</td><td>ACTION</td></tr>';
+        }
+        $('#whiteList').children('tbody').html(table);
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        createCover('Någonting gick snett. Försök igen lite senare. Prova att ladda om sidan.', false);
+        if(console && console.log) {
+          console.log(errorThrown);
+          console.log(jqXHR);
+        }
+      });
+    });
     $('#settingsArea').children().hide();
     $('#settingsPicker').find('tr').on('click', function() {
       $('#settingsArea').children().hide();

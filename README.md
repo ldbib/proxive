@@ -18,6 +18,7 @@ Proxy service utilizing a modified version of node-unblocker.
 
 ## Todo
 
+* Removal of whitelist and WIU blacklist items.
 * Check that connection.release() is used correctly
 * Editing of "homepage"
 * Searching/filtering users in admin panel

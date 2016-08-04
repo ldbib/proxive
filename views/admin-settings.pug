@@ -100,10 +100,10 @@ block content
         h2 Hemsidan/vidarebefordring
         div#homepageType
           label
-            input(name='homepageType' type='radio' value='homepage' checked=(organization.directToUrl ? '' : 'checked'))
+            input(name='homepageType' type='radio' value='homepage' checked=(organization.directToUrl ? false : true))
             | Hemside-editorn
           label
-            input(name='homepageType' type='radio' value='directUrl' checked=(organization.directToUrl ? 'checked' : ''))
+            input(name='homepageType' type='radio' value='directUrl' checked=(organization.directToUrl ? true : false))
             | Gå direkt till URL
         hr
         div#homepageEditor

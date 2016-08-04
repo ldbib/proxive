@@ -20,7 +20,6 @@ Proxy service utilizing a modified version of node-unblocker.
 
 * Removal of whitelist and WIU blacklist items.
 * Check that connection.release() is used correctly
-* Editing of "homepage"
 * Searching/filtering users in admin panel
 * Captcha (VisualCaptcha?) (ReCAPTCHA works horrible on poor/insecure intranets (like ours...))
 * Tests

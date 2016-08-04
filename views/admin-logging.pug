@@ -1,0 +1,27 @@
+
+extends layout
+
+block content
+  - var currentPage = 'users'
+  include ./includes/admin-navbar.pug
+
+  div.fullPage#logPage
+    div
+      div#logFilter
+        label
+          | Filtrera på användare
+          input(name='logFilterUser' type='text' autocomplete='off')#logFilterUserText
+        button(type='button')#logFilterUser Sök
+      table#logs
+        thead
+          tr
+            th Användare
+            th Meddelande
+            th OS
+            th UA
+            th Datum &amp; Tid
+        tbody
+      
+
+  script(defer='defer' src='/js/jquery-3.1.0.min.js')
+  script(defer='defer' src='/js/admin.js')

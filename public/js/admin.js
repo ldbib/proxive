@@ -390,4 +390,37 @@
       });
     });
   }
+
+  if($('#logFilter').length === 1) {
+    $('#logFilterUser').on('click', function() {
+      $.ajax({
+        method: 'GET',
+        url: '/admin/logs',
+        dataType: 'json',
+        data: {
+          search: $('#logFilterUserText').val()
+        }
+      })
+      .done(function(data) {
+        var html = '', i, ii;
+        for(i = 0; i < 100; i++) {
+          html+= '<tr><td>'+'nope'+'</td></tr>';
+        }
+        for(i = 0, ii = data.logs.length; i < ii; i++) {
+          html+= '<tr><td>'+data.logs[i].userId+'</td></tr>';
+        }
+        $('#logs').find('tbody').html(html);
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        if(jqXHR.responseJSON && jqXHR.responseJSON.error === 'Invalid input!') {
+          return createCover('Du måste söka på något!', false);
+        }
+        createCover('Någonting gick snett. Försök igen lite senare.', false);
+        if(console && console.log) {
+          console.log(errorThrown);
+          console.log(jqXHR);
+        }
+      });
+    });
+  }
 })(jQuery);

@@ -91,7 +91,7 @@ textarea {
   min-height: 6em;
   height: 6em; }
 
-#userEdit, #settingsArea, #userList {
+#userEdit, #settingsArea, #userList, #logPage > div {
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden; }

@@ -6,22 +6,21 @@ block content
   include ./includes/admin-navbar.pug
 
   div.fullPage
-    div.third
+    div.third#userList
       div#userFilter
-      div#userList
-        table
-          tbody
-            tr(id='user-new')
-              td(colspan='3') Ny användare
-            for user in users
-              tr(id='user-'+user.id)
-                td=user.fname+' '+user.lname
-                td=user.workplace
-                td
-                  if user.admin > 0
-                    span.adminBadge
-                  if user.locked
-                    span.lockedBadge
+      table
+        tbody
+          tr(id='user-new')
+            td(colspan='3') Ny användare
+          for user in users
+            tr(id='user-'+user.id)
+              td=user.fname+' '+user.lname
+              td=user.workplace
+              td
+                if user.admin > 0
+                  span.adminBadge
+                if user.locked
+                  span.lockedBadge
     div.twothirds.padded#userEdit
       input(type='hidden' name='id' value='new' autocomplete='off')#id
       label

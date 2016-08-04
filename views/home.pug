@@ -2,9 +2,24 @@
 extends layout
 
 block content
-  div
-    form(action="/redirect" method="GET")
-      p Skriv url:en som du vill testa i rutan och tryck på Kör!
-      p NOTERA att du måste skriva http/https också! Exempel: https://www.google.com/
-      input(type="text" name="url" placeholder="URL")#url
-      input(type="submit" value="Kör!")#go
+  - var currentPage = 'home'
+  if currentUser.admin > 0
+    include ./includes/admin-navbar.pug
+  else
+    include ./includes/user-navbar.pug
+  div.fullPage.padded
+    if nextUrl
+      h2 Laddar sidan om #[span#seconds 5 sekunder]
+      p.
+        Tryck på ESC eller klicka någonstans för att förhindra att gå till följande länk automatiskt
+        #[br]
+        #[a(href=nextUrl)#directUrl=nextUrl]
+    else if organization.homepageHtml
+      !=organization.homepageHtml
+    else
+      form(action="/redirect" method="GET")
+        p Skriv url:en som du vill navigera till och tryck på Kör!
+        p NOTERA att du måste skriva http/https också! Exempel: https://www.google.com/
+        input(type="text" name="url" placeholder="URL")#url
+        input(type="submit" value="Kör!")#go
+  script(defer='defer' src='/js/home.js')

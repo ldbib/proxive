@@ -1,6 +1,6 @@
 nav
   ul
-    li: a(href='/') Startsidan
+    li: a(href='/' class=(currentPage === 'home' ? 'active' : '')) Startsidan
     li: a(href='/admin' class=(currentPage === 'admin' ? 'active' : '')) Admin
     li: a(href='/admin/users' class=(currentPage === 'users' ? 'active' : '')) Användare
     li: a(href='/admin/settings' class=(currentPage === 'settings' ? 'active' : '')) Inställningar

@@ -3,15 +3,15 @@
 
 (function($){
   'use strict';
-  var topBar = $('nav');
-  var fullPage = $('.fullPage');
+  var topBar = document.getElementsByTagName('nav')[0];
+  var fullPage = document.querySelector('.fullPage');
   function resizeFullPage() {
-    fullPage.css('padding-top', topBar.outerHeight() + 'px');
+    fullPage.style.paddingTop = topBar.clientHeight+'px';
   }
   // Timeout used to ensure that everything is ready before we do the resize.
   setTimeout(resizeFullPage, 1);
   var timeoutStarted = false;
-  $(window).on('resize', function() {
+  window.onresize = function() {
     if(!timeoutStarted) {
       timeoutStarted = true;
       setTimeout(function() {
@@ -19,7 +19,7 @@
         resizeFullPage();
       }, 50);
     }
-  });
+  };
 
   function createCover(text, time) {
     $('body').prepend('<div class="cover"></div><div class="coverText"><div></div></div>');

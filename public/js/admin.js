@@ -49,6 +49,7 @@
       selector: '#userEmail',
       language: 'sv_SE',
       height: 300,
+      content_css : "/css/style.css",
       plugins: [
         'autolink code contextmenu image insertdatetime link table textcolor'
       ],
@@ -60,6 +61,7 @@
       selector: '#homepageHtml',
       language: 'sv_SE',
       height: 300,
+      content_css : "/css/style.css",
       plugins: [
         'autolink code contextmenu image insertdatetime link table textcolor'
       ],

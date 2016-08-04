@@ -403,9 +403,6 @@
       })
       .done(function(data) {
         var html = '', i, ii;
-        for(i = 0; i < 100; i++) {
-          html+= '<tr><td>'+'nope'+'</td></tr>';
-        }
         for(i = 0, ii = data.logs.length; i < ii; i++) {
           html+= '<tr><td>'+data.logs[i].userId+'</td></tr>';
         }

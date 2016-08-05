@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    title Proxive - Browzine simple login
+    meta(charset='utf-8')
+  body
+    // The following title is static
+    h1#title Proxive - Browzine simple login
+    // The following name can be changed by the administrators
+    h2#orgLoginName=orgData.name
+    // If the login is successful the POST will return a page in text/plain in UTF-8 saying "success", otherwise it will return to this page with an error message in a "p"-tag with the id error after this comment.
+    if(error)
+      p#error=error
+    // Nothing inside this form will ever change!
+    // The action will change depending on what URL you want to go to with the URL appended to /browzine-login/.
+    form(action='/browzine-login/'+url method='post')
+      p Please enter your Proxive username and password!
+      input#organization(type='hidden' name='organization' value=orgData.id)
+      label(for='user') Username
+      br
+      input#user(type='text' name='user' autofocus='true')
+      br
+      label(for='pass') Password
+      br
+      input#pass(type='password' name='pass')
+      br
+      br
+      input#submit(type='submit' value='Login')

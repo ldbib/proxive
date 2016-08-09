@@ -81,7 +81,19 @@ function setupServer(config) {
     specialRedirects: config.specialRedirects
   };
 
-  unblockerConfig.requestMiddleware = [require('./lib/special-redirects.js')(unblockerConfig)];
+  var unblockerConfigSpecial = {
+    prefix: false,
+    domainPrefixing: true,
+    domain: config.proxyServer.domain,
+    specialRedirects: config.specialRedirects,
+    mysql: pool,
+    redisClient: config.redisClient
+  };
+
+  unblockerConfig.requestMiddleware = [
+    require('./lib/special-redirects.js')(unblockerConfig),
+    require('./lib/otool.js')(unblockerConfigSpecial)
+  ];
 
   var unblocker = new Unblocker(unblockerConfig);
 
@@ -107,15 +119,15 @@ function setupServer(config) {
                 message: 'Prova att ladda om sidan om en liten stund.'}));
             }
           }
-          // TODO: get user org and IP to connect with proxy
-           config.organizations.getConnectIp(cookieInfo.user, function(err, ip) {
+          config.organizations.getConnectOrgIdAndIp(cookieInfo.user, function(err, orgId, orgIp) {
             if(err) {
               console.error(err);
               res.writeHead(500, {'content-type': 'text/html; charset=utf-8'});
               return res.end(config.pugGen.run['500.pug']({title: 'Ett fel inträffade vid valideringen av inloggningsuppgifterna!',
                 message: 'Prova att ladda om sidan om en liten stund.'}));
             }
-            req.ipToConnectWith = ip;
+            req.organizationId  = orgId;
+            req.ipToConnectWith = orgIp;
             unblocker(req, res, function(err) {
               // this callback will be fired for any request that unblocker does not serve
               var headers = {'content-type': 'text/html; charset=utf-8'};

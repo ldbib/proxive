@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title Proxive 2.0 ALPHA
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+  body
+    h3 Felaktig input
+    if error
+      p=error
+    if errorFields
+      p
+        | De felaktiga fält#{(errorFields.length > 1 ? "en" : "et")} var
+        for errorField in errorFields
+          = " "+errorField
+    a(href='#' onclick='window.history.back(); return false') Försök igen genom att trycka här

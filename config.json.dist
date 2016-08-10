@@ -28,5 +28,8 @@
   "https": true,
   "specialRedirects": [
     ["http://example.com", "http://example.org"]
+  ],
+  "orgFreetext": [
+    "org-that-has-organization-freetext"
   ]
 }

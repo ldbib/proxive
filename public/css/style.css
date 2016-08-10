@@ -60,6 +60,22 @@ table {
 .padded {
   padding: 15px; }
 
+#loginPage {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto 0; }
+  #loginPage h2 {
+    margin: 0;
+    padding: 20px 0; }
+
+#loginUsernameButton, #loginEmailButton, #createNewAccount, #loginU, #loginE, #loginBack {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1em; }
+
+#loginForms, #loginUsername, #loginEmail {
+  display: none; }
+
 .fullPage {
   position: absolute;
   top: 0;

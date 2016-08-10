@@ -2,24 +2,42 @@
 extends layout
 
 block content
-  div
-    form(action="/loginWithUsername" method="POST")
-      select(name="organization")#organization
-        option(value="disabled" disabled selected) Välj organisation
-        each val in organizations.length ? organizations : [{organization_id: 'null', organization_name: 'No organization found!'}]
-          option(value=val.organization_id)=val.organization_name
-      input(type="text" name="username" placeholder="Username")#usernameU
-      input(type="password" name="password" placeholder="Password")#passwordU
-      input(type="hidden" name="redirectUrl" value=redirect)
-      input(type="submit" value="Login")#loginU
-  div
-    form(action="/loginWithEmail" method="POST")
-      input(type="email" name="email" placeholder="Email")#emailE
-      input(type="password" name="password" placeholder="Password")#passwordE
-      input(type="hidden" name="redirectUrl" value=redirect)
-      input(type="submit" value="Login")#loginE
-  footer
-    ul
-      li: a(href='/integrity') Integritetspolicy
-      li: a(href='/personal-details') Behandling av personuppgifter
-      li: a(href='/cookies') Användning av kakor (cookies)
+  div#loginPage
+    div
+      h2 Proxive
+      noscript
+        h3 Du måste ha JavaScript aktiverat för att fortsätta!
+      div#loginSelector
+        button(type='button')#loginUsernameButton Logga in med användarnamn
+        button(type='button')#loginEmailButton Logga in med med e-postadress
+        button(type='button')#createNewAccount Skapa ett konto
+    div#loginForms
+      button(type='button')#loginBack Tillbaka
+      div#loginUsername
+        form(action="/loginWithUsername" method="POST")
+          label Organisation
+            select(name="organization")#organization
+              option(value="disabled" disabled selected) Välj organisation
+              each val in organizations.length ? organizations : [{organization_id: 'null', organization_name: 'No organization found!'}]
+                option(value=val.organization_id)=val.organization_name
+          label Användarnamn
+            input(type="text" name="username" placeholder="Username")#usernameU
+          label Lösenord
+            input(type="password" name="password" placeholder="Password")#passwordU
+          input(type="hidden" name="redirectUrl" value=redirect)
+          input(type="submit" value="Login")#loginU
+      div#loginEmail
+        form(action="/loginWithEmail" method="POST")
+          label E-postadress
+            input(type="email" name="email" placeholder="Email")#emailE
+          label Lösenord
+            input(type="password" name="password" placeholder="Password")#passwordE
+          input(type="hidden" name="redirectUrl" value=redirect)
+          input(type="submit" value="Login")#loginE
+    footer
+      ul
+        li: a(href='/integrity') Integritetspolicy
+        li: a(href='/personal-details') Behandling av personuppgifter
+        li: a(href='/cookies') Användning av kakor (cookies)
+
+  script(src='/js/login.js')

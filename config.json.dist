@@ -31,5 +31,20 @@
   ],
   "orgFreetext": [
     "org-that-has-organization-freetext"
-  ]
+  ],
+  "email": {
+    "address": "Noreply <noreply@example.com>",
+    "nodemailer": {
+      "host": "example.com",
+      "port": 587,
+      "secure": false,
+      "auth": {
+        "user": "noreply@example.com",
+        "pass": "example.com"
+      },
+      "tls": {
+        "rejectUnauthorized": true
+      }
+    }
+  }
 }

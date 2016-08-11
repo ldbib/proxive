@@ -32,6 +32,7 @@
     "pug": "^2.0.0-beta3",
     "randomstring": "^1.1.5",
     "redis": "^2.6.2",
+    "tld": "0.0.2",
     "unblocker": "emilhem/node-unblocker",
     "watch": "^0.17.1"
   },

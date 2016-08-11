@@ -87,10 +87,12 @@ function setupServer(config) {
     domain: config.proxyServer.domain,
     specialRedirects: config.specialRedirects,
     mysql: pool,
-    redisClient: config.redisClient
+    redisClient: config.redisClient,
+    pugGen: config.pugGen
   };
 
   unblockerConfig.requestMiddleware = [
+    require('./lib/whitelist.js')(unblockerConfigSpecial),
     require('./lib/special-redirects.js')(unblockerConfig),
     require('./lib/otool.js')(unblockerConfigSpecial)
   ];

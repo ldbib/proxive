@@ -34,6 +34,8 @@
       } else {
         organizationFreetext.parentNode.style.display = 'none';
       }
+    } else {
+      organizationFreetext.parentNode.style.display = 'none';
     }
   };
 

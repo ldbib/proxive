@@ -10,6 +10,8 @@ block content
       div#loginSelector
         button(type='button')#loginUsernameButton Logga in med användarnamn
         button(type='button')#loginEmailButton Logga in med med e-postadress
+        button(type='button')#wiuButton Walk In Use
+        button(type='button')#forgotButton Glömt lösenordet?
         button(type='button')#createNewAccount Skapa ett konto
     div#loginForms
       button(type='button')#loginBack Tillbaka
@@ -34,6 +36,18 @@ block content
             input(type="password" name="password" placeholder="Password")#passwordE
           input(type="hidden" name="redirectUrl" value=redirect)
           input(type="submit" value="Login")#loginE
+      div#wiu
+        form(action="/loginWiu" method="POST")
+          label Organisation
+            select(name="organization")#wiuOrganization
+              option(value="disabled" disabled selected) Välj organisation
+              each val in organizations.length ? organizations : [{organization_id: 'null', wiu: true, organization_name: 'Ingen organisation med Walk In Use aktiverat funnen!'}]
+                if(val.wiu)
+                  option(value=val.organization_id)=val.organization_name
+          label Lösenord
+            input(type="password" name="password" placeholder="Password")#passwordWiu
+          input(type="hidden" name="redirectUrl" value=redirect)
+          input(type="submit" value="Login")#loginWiu
     footer
       ul
         li: a(href='/integrity') Integritetspolicy

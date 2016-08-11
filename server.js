@@ -70,6 +70,7 @@ function setupServer(config) {
   config.users = require('./lib/users.js')(config);
 
   config.pugGen = require('./lib/pugGenerator.js')(config);
+  config.emailer = require('./lib/emailer.js')(config);
 
   var get  = require('./lib/get.js')(config);
   var post = require('./lib/post.js')(config);

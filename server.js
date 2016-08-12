@@ -89,7 +89,8 @@ function setupServer(config) {
     specialRedirects: config.specialRedirects,
     mysql: pool,
     redisClient: config.redisClient,
-    pugGen: config.pugGen
+    pugGen: config.pugGen,
+    webmasterEmail: config.webmasterEmail
   };
 
   unblockerConfig.requestMiddleware = [

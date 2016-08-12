@@ -46,5 +46,6 @@
         "rejectUnauthorized": true
       }
     }
-  }
+  },
+  "webmasterEmail": "example@example.org"
 }

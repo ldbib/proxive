@@ -41,6 +41,9 @@ block content
             input(type="text" name="username" required placeholder="Username")#usernameU
           label Lösenord
             input(type="password" name="password" required placeholder="Password")#passwordU
+          label
+            input(type="checkbox" name="rememberMe")#rememberMeU
+            | Håll mig inloggad i 30 dagar
           input(type="hidden" name="redirectUrl" value=redirect)
           input(type="submit" value="Login").bigButton#loginU
       div#loginEmail
@@ -49,6 +52,9 @@ block content
             input(type="email" name="email" required placeholder="Email")#emailE
           label Lösenord
             input(type="password" name="password" required placeholder="Password")#passwordE
+          label
+            input(type="checkbox" name="rememberMe")#rememberMeE
+            | Håll mig inloggad i 30 dagar
           input(type="hidden" name="redirectUrl" value=redirect)
           input(type="submit" value="Login").bigButton#loginE
       div#wiu

@@ -34,6 +34,7 @@
     "randomstring": "^1.1.5",
     "redis": "^2.6.2",
     "tld": "0.0.2",
+    "ua-parser": "^0.3.5",
     "unblocker": "emilhem/node-unblocker",
     "watch": "^0.17.1"
   },

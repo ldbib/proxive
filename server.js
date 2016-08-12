@@ -97,6 +97,9 @@ function setupServer(config) {
     require('./lib/special-redirects.js')(unblockerConfig),
     require('./lib/otool.js')(unblockerConfigSpecial)
   ];
+  unblockerConfig.responseMiddleware = [
+    require('./lib/logging.js')(unblockerConfigSpecial)
+  ];
 
   var unblocker = new Unblocker(unblockerConfig);
 
@@ -122,6 +125,7 @@ function setupServer(config) {
                 message: 'Prova att ladda om sidan om en liten stund.'}));
             }
           }
+          req.userId = cookieInfo.user;
           config.organizations.getConnectOrgIdAndIp(cookieInfo.user, function(err, orgId, orgIp) {
             if(err) {
               console.error(err);

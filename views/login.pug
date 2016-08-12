@@ -7,47 +7,62 @@ block content
       h2 Proxive
       noscript
         h3 Du måste ha JavaScript aktiverat för att fortsätta!
+      if error
+        if error === 'user-not-found'
+          p Antingen var uppgifterna fel eller så finns inte den användaren.
+        if error === 'user-locked'
+          p Användaren är låst. Antagligen har inte organisationen verifierat din användare ännu.
+        if error === 'missing-organization'
+          p Du måste fylla i din organisation!
+        if error === 'missing-username'
+          p Du måste fylla i ditt användarnamn!
+        if error === 'missing-password'
+          p Du måste fylla i ditt lösenord!
+        if error === 'missing-email'
+          p Du måste fylla i din e-postadress!
+        if error === 'error-occured'
+          p Ett ospecifierat fel inträffade. Försök igen.
       div#loginSelector
-        button(type='button')#loginUsernameButton Logga in med användarnamn
-        button(type='button')#loginEmailButton Logga in med med e-postadress
-        button(type='button')#wiuButton Walk In Use
-        button(type='button')#forgotButton Glömt lösenordet?
-        button(type='button')#createNewAccount Skapa ett konto
+        button(type='button').bigButton#loginUsernameButton Logga in med användarnamn
+        button(type='button').bigButton#loginEmailButton Logga in med med e-postadress
+        button(type='button').bigButton#wiuButton Walk In Use
+        button(type='button').bigButton#forgotButton Glömt lösenordet?
+        button(type='button').bigButton#createNewAccount Skapa ett konto
     div#loginForms
-      button(type='button')#loginBack Tillbaka
+      button(type='button').bigButton#loginBack Tillbaka
       div#loginUsername
         form(action="/loginWithUsername" method="POST")
           label Organisation
-            select(name="organization")#organization
-              option(value="disabled" disabled selected) Välj organisation
+            select(name="organization" required)#organization
+              option(value="" disabled selected) Välj organisation
               each val in organizations.length ? organizations : [{organization_id: 'null', organization_name: 'No organization found!'}]
                 option(value=val.organization_id)=val.organization_name
           label Användarnamn
-            input(type="text" name="username" placeholder="Username")#usernameU
+            input(type="text" name="username" required placeholder="Username")#usernameU
           label Lösenord
-            input(type="password" name="password" placeholder="Password")#passwordU
+            input(type="password" name="password" required placeholder="Password")#passwordU
           input(type="hidden" name="redirectUrl" value=redirect)
-          input(type="submit" value="Login")#loginU
+          input(type="submit" value="Login").bigButton#loginU
       div#loginEmail
         form(action="/loginWithEmail" method="POST")
           label E-postadress
-            input(type="email" name="email" placeholder="Email")#emailE
+            input(type="email" name="email" required placeholder="Email")#emailE
           label Lösenord
-            input(type="password" name="password" placeholder="Password")#passwordE
+            input(type="password" name="password" required placeholder="Password")#passwordE
           input(type="hidden" name="redirectUrl" value=redirect)
-          input(type="submit" value="Login")#loginE
+          input(type="submit" value="Login").bigButton#loginE
       div#wiu
         form(action="/loginWiu" method="POST")
           label Organisation
-            select(name="organization")#wiuOrganization
-              option(value="disabled" disabled selected) Välj organisation
+            select(name="organization" required)#wiuOrganization
+              option(value="" disabled selected) Välj organisation
               each val in organizations.length ? organizations : [{organization_id: 'null', wiu: true, organization_name: 'Ingen organisation med Walk In Use aktiverat funnen!'}]
                 if(val.wiu)
                   option(value=val.organization_id)=val.organization_name
           label Lösenord
-            input(type="password" name="password" placeholder="Password")#passwordWiu
+            input(type="password" name="password" required placeholder="Password")#passwordWiu
           input(type="hidden" name="redirectUrl" value=redirect)
-          input(type="submit" value="Login")#loginWiu
+          input(type="submit" value="Login").bigButton#loginWiu
     footer
       ul
         li: a(href='/integrity') Integritetspolicy

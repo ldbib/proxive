@@ -18,10 +18,17 @@ Proxy service utilizing a modified version of node-unblocker.
 
 ## Todo
 
+* Walk In Use functionality
+* Walk In Use blacklists
+* Referral URLs at login should take you to the proxified url after signin.
+* Signup agreement isn't shown on signup.
+* Searching in userlist
+* Removal of users
+* Statistics
+* Logging of login
 * Removal of whitelist and WIU blacklist items.
 * Check that connection.release() is used correctly
 * Searching/filtering users in admin panel
-* Captcha (VisualCaptcha?) (ReCAPTCHA works horrible on poor/insecure intranets (like ours...))
 * Tests
 
 ## Copyright

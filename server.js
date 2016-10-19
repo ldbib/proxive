@@ -74,6 +74,7 @@ function setupServer(config) {
 
   var get  = require('./lib/get.js')(config);
   var post = require('./lib/post.js')(config);
+  var adminDelete = require('./lib/delete.js')(config);
 
   var unblockerConfig = {
     prefix: false,
@@ -144,11 +145,11 @@ function setupServer(config) {
                 console.error(err);
                 res.writeHead(500, headers);
                 return res.end(config.pugGen.run['500.pug']({title: 'Ett fel hände vid hämtandet av sidan!',
-                  message: 'Ett fel inträffade! Är du säker på att adressen ska fungera? Kontakta i så fall emil.hemdal@ltdalarna.se'}));
+                  message: 'Ett fel inträffade! Är du säker på att adressen ska fungera? Kontakta i så fall kristin.nordahl@ltdalarna.se'}));
               }
               res.writeHead(404, headers);
               return res.end(config.pugGen.run['404.pug']({title: 'Ett fel hände vid hämtandet av sidan!',
-                message: 'Ett fel inträffade! Är du säker på att adressen ska fungera? Kontakta i så fall emil.hemdal@ltdalarna.se'}));
+                message: 'Ett fel inträffade! Är du säker på att adressen ska fungera? Kontakta i så fall kristin.nordahl@ltdalarna.se'}));
             });
           });
         });
@@ -168,6 +169,8 @@ function setupServer(config) {
       post(req, res);
     } else if(req.method === 'GET') {
       get(req, res);
+    } else if(req.method === 'DELETE') {
+      adminDelete(req, res);
     } else {
       res.writeHead(405, {
         'content-type': 'text/plain; charset=utf-8'

@@ -1,9 +1,8 @@
 nav
   ul
+    li.no-border: h1 PROXIVE
     li: a(href='/' class=(currentPage === 'home' ? 'active' : '')) Startsidan
-    li: a(href='/admin' class=(currentPage === 'admin' ? 'active' : '')) Admin
     li: a(href='/admin/users' class=(currentPage === 'users' ? 'active' : '')) Användare
     li: a(href='/admin/settings' class=(currentPage === 'settings' ? 'active' : '')) Inställningar
     li: a(href='/admin/logging' class=(currentPage === 'logging' ? 'active' : '')) Loggar
-    li: a(href='/admin/statistics' class=(currentPage === 'statistics' ? 'active' : '')) Statistik
-    li: a(href='/signout') Logga ut
+    li.no-border: a(href='/signout') Logga ut

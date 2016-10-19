@@ -43,7 +43,35 @@
       });
     }
   }
-
+  function filterUserList(val) {
+    $('#userList').find('tbody').empty();
+    if (val === 'locked'){
+      for (var i = 0, ii = usersData.length; i < ii; i++){
+        if (usersData[i].locked > 0) {
+          var row = '<tr id="user-' + usersData[i].id + '"><td>' + usersData[i].fname + '</td><td>' + usersData[i].lname + ' </td><td>' + usersData[i].workplace + '</td><td>';
+          row += '<span class="lockedBadge"></span>';
+          row += '</td></tr>';
+          $('#userList').find('tbody').append(row);
+        }
+      }
+    }
+    else {
+      var reg = new RegExp(val, "i");
+      for (var i = 0, ii = usersData.length; i < ii; i++){
+        if (reg.test(usersData[i].fname) || reg.test(usersData[i].lname) || reg.test(usersData[i].workplace)){
+          var row = '<tr id="user-' + usersData[i].id + '"><td>' + usersData[i].fname + ' ' + usersData[i].lname + ' </td><td>' + usersData[i].workplace + '</td><td>';
+          if (usersData[i].admin > 0){
+            row += '<span class="adminBadge"></span>';
+          }
+          if (usersData[i].locked > 0){
+            row += '<span class="lockedBadge"></span>';
+          }
+          row += '</td></tr>';
+          $('#userList').find('tbody').append(row);
+        }
+      }
+    }
+  }
   if($('#settingsPicker').length === 1) {
     tinymce.init({
       selector: '#userEmail',
@@ -60,8 +88,8 @@
     tinymce.init({
       selector: '#homepageHtml',
       language: 'sv_SE',
-      height: 300,
-      content_css : "/css/style.css",
+      height: 500,
+      content_css : "/css/style-tinymce-editor.css",
       plugins: [
         'autolink code contextmenu image insertdatetime link table textcolor'
       ],
@@ -196,7 +224,7 @@
       .done(function(data) {
         var table = '', i, ii;
         for(i = 0, ii = data.urls.length; i < ii; i++) {
-          table+= '<tr><td>'+data.urls[i]+'</td><td>ACTION</td></tr>';
+          table+= '<tr><td>'+data.urls[i]+'</td><td><img src=</td></tr>';
         }
         $('#wiuList').children('tbody').html(table);
       })
@@ -221,6 +249,7 @@
       })
       .done(function(data) {
         createCover('URL '+data.domain+' tillagd!', 2000);
+        $('#addWhiteListUrl').val('');
       })
       .fail(function(jqXHR, textStatus, errorThrown) {
         console.log(jqXHR);
@@ -251,7 +280,7 @@
       .done(function(data) {
         var table = '', i, ii;
         for(i = 0, ii = data.urls.length; i < ii; i++) {
-          table+= '<tr><td>'+data.urls[i]+'</td><td>ACTION</td></tr>';
+          table+= '<tr><td>'+data.urls[i].url+'</td><td><span id="'+data.urls[i].id+'" class="removeBadge"></span></td></tr>';
         }
         $('#whiteList').children('tbody').html(table);
       })
@@ -263,7 +292,30 @@
         }
       });
     });
-
+    $('#whiteList').on('click', '.removeBadge', function() {
+      var data = {"id": $(this).attr('id')};
+      if (confirm('Vill du ta bort '+$(this).closest('td').prev('td').text()+' från vitlistan?')){
+        $.ajax({
+          method: 'DELETE',
+          cache: false,
+          url: '/admin/deleteWhiteList',
+          dataType: 'json',
+          data: data
+        })
+        .done(function(data) {
+          createCover('Borttagen!');
+          $('#searchWhiteListUrl').val('');
+          $('#whiteList').find('tbody').empty();
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+          createCover('Någonting gick snett. Försök igen lite senare. Prova att ladda om sidan.', false);
+          if(console && console.log) {
+            console.log(errorThrown);
+            console.log(jqXHR);
+          }
+        });
+      }
+    })
     $('#homepageType').find('input').on('click', function() {
       var that = $(this);
       setTimeout(function() {
@@ -276,7 +328,6 @@
         }
       }, 1);
     });
-
     $('#saveHomepageSettings').on('click', function() {
       var data = {
         id: $('#id').val(),
@@ -310,19 +361,52 @@
       $('#homepageEditor').hide();
     }
     $('#settingsArea').children().hide();
-    $('#settingsPicker').find('tr').on('click', function() {
+    $('#settingsPicker').on('click', 'button', function() {
       $('#settingsArea').children().hide();
       $($(this).attr('data-target')).show();
     });
   }
-
+  $('#user-search-btn').on('click', function(){
+    var search = $('#user-search').val().trim();
+    if (search.length > 0){
+      filterUserList(search);
+      $(window).resize();
+    }
+  });
+  $('#user-show-locked-btn').on('click', function(){
+    var search = 'locked';
+    filterUserList(search);
+    $(window).resize();
+  });
+  $('#user-clear-search-btn').on('click', function(){
+    $('#user-search').val('');
+    $('#userList').find('tbody').empty();
+    for (var i = 0, ii = usersData.length; i < ii; i++){
+      var row = '<tr id="user-' + usersData[i].id + '"><td>' + usersData[i].fname + ' ' + usersData[i].lname + ' </td><td>' + usersData[i].workplace + '</td><td>';
+      if (usersData[i].admin > 0){
+        row += '<span class="adminBadge"></span>';
+      }
+      if (usersData[i].locked > 0){
+        row += '<span class="lockedBadge"></span>';
+      }
+      row += '</td></tr>';
+      $('#userList').find('tbody').append(row);
+    }
+  });
   if($('#userEdit').length === 1) {
+    $('#user-new').on('click', function(){
+        $('#edit-user').text('Skapa ny användare');
+        $('#userEdit').find('input').val('');
+        $('#userEdit').find('input[type=checkbox]').prop('checked', false);
+        $('#id').val('new');
+    });
     $('#userList').on('click', 'tr', function() {
       if(this.id === 'user-new') {
         $('#userEdit').find('input').val('');
         $('#userEdit').find('input[type=checkbox]').prop('checked', false);
         $('#id').val('new');
       } else {
+        $('#edit-user').text('Redigera användare');
         $.ajax({
           method: 'GET',
           url: '/admin/userData',
@@ -349,6 +433,7 @@
               $('#'+key).val(data[key]);
             }
           }
+          
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
           createCover('Någonting gick snett. Försök igen lite senare.', false);
@@ -364,9 +449,8 @@
       $('#userEdit').find('input, select').not('input[type=checkbox]').each(function() {
         data[this.id] = $(this).val();
       });
-      $('#userEdit').find('input[type=checkbox]').each(function() {
-        data[this.id] = $(this).prop('checked');
-      });
+      data.admin = $('#userEdit').find('input[name=admin]').prop('checked') ? 1 : 0;
+      data.locked = $('#userEdit').find('input[name=locked]').prop('checked') ? 1 : 0;
       $.ajax({
         method: 'POST',
         url: '/admin/userData',
@@ -380,7 +464,10 @@
             window.location = window.location;
           }, 2200);
         } else {
-          createCover('Användare sparad!', 2000);
+          createCover('Användare sparad! Laddar om sidan!', 2000);
+          setTimeout(function() {
+            window.location = window.location;
+          }, 2200);
         }
       })
       .fail(function(jqXHR, textStatus, errorThrown) {
@@ -392,7 +479,53 @@
       });
     });
   }
-
+  $('#deleteUser').on('click', function(){
+    var data = {"id": $('#id').val()};
+    if (confirm('Vill du ta bort '+ $('#fname').val()+' '+$('#lname').val()+'?')){
+      $.ajax({
+        method: 'DELETE',
+        cache: false,
+        url: '/admin/deleteUser',
+        dataType: 'json',
+        data: data
+      })
+      .done(function(data) {
+        createCover('Borttagen! Laddar om sidan!', 2000);
+        setTimeout(function() {
+          window.location = window.location;
+        }, 2200);
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        createCover('Någonting gick snett. Försök igen lite senare. Prova att ladda om sidan.', false);
+        if(console && console.log) {
+          console.log(errorThrown);
+          console.log(jqXHR);
+        }
+      });
+    }
+  })
+  $('#sendUserApprovedEmail').on('click', function(){
+      var data = {};
+      data.organization = $('#organizationId').val();
+      data.email =  $('#email').val();
+	  data.pemail = $('#pemail').val();
+      $.ajax({
+        method: 'POST',
+        url: '/admin/sendUserApprovedEmail',
+        dataType: 'json',
+        data: data
+      })
+      .done(function(data) {
+        createCover('Mail om godkänd användare skickat!', false);
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        createCover('Någonting gick snett. Försök igen lite senare.', false);
+        if(console && console.log) {
+          console.log(errorThrown);
+          console.log(jqXHR);
+        }
+      });
+  });
   if($('#logFilter').length === 1) {
     $('#logFilterUser').on('click', function() {
       $.ajax({
@@ -406,7 +539,10 @@
       .done(function(data) {
         var html = '', i, ii;
         for(i = 0, ii = data.logs.length; i < ii; i++) {
-          html+= '<tr><td>'+data.logs[i].userId+'</td></tr>';
+          var d = new Date(data.logs[i].unix * 1000);
+          var month = d.getMonth() + 1;
+          d = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds(); 
+          html+= '<tr><td>'+data.logs[i].username+'</td><td>'+data.logs[i].message+'</td><td>'+data.logs[i].os+'</td><td>'+data.logs[i].ua+'</td><td>'+d+'</td></tr>';
         }
         $('#logs').find('tbody').html(html);
       })
@@ -422,4 +558,31 @@
       });
     });
   }
+  $('#log1000posts').on('click', function(){
+    $.ajax({
+      method: 'GET',
+      url: '/admin/logs',
+      dataType: 'json',
+      data: {
+        latest: true
+      }
+    })
+    .done(function(data) {
+      var html = '', i, ii;
+      for(i = 0, ii = data.logs.length; i < ii; i++) {
+        var d = new Date(data.logs[i].unix * 1000);
+        var month = d.getMonth() + 1;
+        d = d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds(); 
+        html+= '<tr><td>'+data.logs[i].username+'</td><td>'+data.logs[i].message+'</td><td>'+data.logs[i].os+'</td><td>'+data.logs[i].ua+'</td><td>'+d+'</td></tr>';
+      }
+      $('#logs').find('tbody').html(html);
+    })
+    .fail(function(jqXHR, textStatus, errorThrown) {
+      createCover('Någonting gick snett. Försök igen lite senare.', false);
+      if(console && console.log) {
+        console.log(errorThrown);
+        console.log(jqXHR);
+      }
+    });
+  });
 })(jQuery);

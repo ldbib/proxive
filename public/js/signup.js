@@ -25,9 +25,17 @@
       el.parentNode.style.color = '';
     }
   }
-
   organization.onchange = function() {
     document.getElementById('afterOrgPick').style.display = 'block';
+    var selectValue = document.getElementById('organization');
+    var value = selectValue[selectValue.selectedIndex].value;
+    var agr = '';
+    for (var i = 0, ii = orgData.length; i < ii; i++){
+      if (orgData[i].organization_id === value){
+        agr = orgData[i].organization_user_agreement;
+        document.getElementById('signUpAgr').innerHTML = agr;
+      }
+    }
     if(organization.dataset && organization.dataset.orgfreetext) {
       if(organization.dataset.orgfreetext.split(',').indexOf(organization.value) !== -1) {
         organizationFreetext.parentNode.style.display = 'block';

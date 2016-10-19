@@ -10,7 +10,7 @@ block content
   div.fullPage.padded
     if nextUrl
       h2 Laddar sidan om #[span#seconds 5 sekunder]
-      p.
+      p(class='startLink').
         Tryck på ESC eller klicka någonstans för att förhindra att gå till följande länk automatiskt
         #[br]
         #[a(href=nextUrl)#directUrl=nextUrl]

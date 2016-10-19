@@ -2,7 +2,7 @@
 extends layout
 
 block content
-  - var currentPage = 'users'
+  - var currentPage = 'logging'
   include ./includes/admin-navbar.pug
 
   div.fullPage#logPage
@@ -12,6 +12,7 @@ block content
           | Filtrera på användare
           input(name='logFilterUser' type='text' autocomplete='off')#logFilterUserText
         button(type='button')#logFilterUser Sök
+        button(type='button')#log1000posts Ladda senaste 1000 loggposterna
       table#logs
         thead
           tr

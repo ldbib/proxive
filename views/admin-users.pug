@@ -5,13 +5,17 @@ block content
   - var currentPage = 'users'
   include ./includes/admin-navbar.pug
 
-  div.fullPage
+  div.fullPageUsers
     div.third#userList
       div#userFilter
+        form#user-search-form(action='')
+          input#user-search(type='text' name='userSearch' placeholder='Sök användare')
+          button#user-search-btn(type='button') Sök
+          button#user-clear-search-btn(type='button') Rensa
+        button#user-show-locked-btn(type='button') Visa endast låsta användare
+        button#user-new Ny användare
       table
         tbody
-          tr(id='user-new')
-            td(colspan='3') Ny användare
           for user in users
             tr(id='user-'+user.id)
               td=user.fname+' '+user.lname
@@ -19,9 +23,10 @@ block content
               td
                 if user.admin > 0
                   span.adminBadge
-                if user.locked
+                if user.locked > 0
                   span.lockedBadge
     div.twothirds.padded#userEdit
+      h3#edit-user Skapa ny användare
       input(type='hidden' name='id' value='new' autocomplete='off')#id
       label
         | Förnamn
@@ -33,7 +38,7 @@ block content
         | Användarnamn
         input(type='text' name='username' autocomplete='off')#username
       label
-        | Lösenord (ändras inte om fältet lämnas tom)
+        | Lösenord (ändras inte om fältet lämnas tomt)
         input(type='password' name='password' autocomplete='off')#password
       label
         | Arbetsplats
@@ -45,7 +50,10 @@ block content
         | Organisation
         select(name='organizationId' autocomplete='off')#organizationId
           for organization in organizations
-            option(value=organization.organization_id)=organization.organization_name
+            if organization.organization_id === org
+              option(value=organization.organization_id selected)=organization.organization_name
+            else
+              option(value=organization.organization_id)=organization.organization_name
       label
         | E-post
         input(type='email' name='email' autocomplete='off')#email
@@ -62,11 +70,13 @@ block content
         input(type='checkbox' name='admin' autocomplete='off')#admin
         | Admin
       label
-        input(type='checkbox' name='lock' autocomplete='off')#lock
+        input(type='checkbox' name='locked' autocomplete='off')#locked
         | Lås
       div
         button(type='button')#saveUserDetails Spara
         button(type='button')#deleteUser Ta bort
-
+        button(type='button')#sendUserApprovedEmail Skicka mail om godkänd användare
+  script.
+    var usersData = !{JSON.stringify(users)};
   script(defer='defer' src='/js/jquery-3.1.0.min.js')
   script(defer='defer' src='/js/admin.js')

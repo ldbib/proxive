@@ -4,21 +4,24 @@ extends layout
 block content
   div.limitedWidth
     div
-      h2 Proxive
-      p Fyll i din organisation och användarnamn eller e-postadress så får du en återställningslänk.
-      hr
-      if error
-        p Du fyllde i någon av uppgifterna fel!
+      h2 PROXIVE
+      div.formBox
+        h3 Glömt lösenordet?
+        div.arrow
+        p Fyll i din organisation och användarnamn eller e-postadress så får du en återställningslänk.
         hr
-      form(action="/remindMe" method="POST")
-        label Organisation
-          select(name="organization")#organization
-            option(value="disabled" disabled selected) Välj organisation
-            each val in organizations.length ? organizations : [{organization_id: 'null', organization_name: 'No organization found!'}]
-              option(value=val.organization_id)=val.organization_name
-        label Användarnamn
-          input(type="text" name="username" placeholder="Username")#username
-        hr
-        label E-postadress
-          input(type="email" name="email" placeholder="Email")#email
-        input(type="submit" value="Skicka återställningslänk")#remindMe
+        if error
+          p Du fyllde i någon av uppgifterna fel!
+          hr
+        form(action="/remindMe" method="POST")
+          label Organisation
+            select(name="organization")#organization
+              option(value="disabled" disabled selected) Välj organisation
+              each val in organizations.length ? organizations : [{organization_id: 'null', organization_name: 'No organization found!'}]
+                option(value=val.organization_id)=val.organization_name
+          label Användarnamn
+            input(type="text" name="username" placeholder="Username")#username
+          hr
+          label E-postadress
+            input(type="email" name="email" placeholder="Email")#email
+          input(type="submit" class='bigButton' value="Skicka återställningslänk")#remindMe

@@ -4,33 +4,34 @@ extends layout
 block content
   div.limitedWidth
     div
-      h2 Proxive
+      h2 PROXIVE
       noscript
         h3 Du måste ha JavaScript aktiverat för att fortsätta!
-      if error
-        if error === 'user-not-found'
-          p Antingen var uppgifterna fel eller så finns inte den användaren.
-        if error === 'user-locked'
-          p Användaren är låst. Antagligen har inte organisationen verifierat din användare ännu.
-        if error === 'missing-organization'
-          p Du måste fylla i din organisation!
-        if error === 'missing-username'
-          p Du måste fylla i ditt användarnamn!
-        if error === 'missing-password'
-          p Du måste fylla i ditt lösenord!
-        if error === 'missing-email'
-          p Du måste fylla i din e-postadress!
-        if error === 'error-occured'
-          p Ett ospecifierat fel inträffade. Försök igen.
       div#loginSelector
+        if error
+          if error === 'user-not-found'
+            p Antingen var uppgifterna fel eller så finns inte den användaren.
+          if error === 'user-locked'
+            p Användaren är låst. Antagligen har inte organisationen verifierat din användare ännu.
+          if error === 'missing-organization'
+            p Du måste fylla i din organisation!
+          if error === 'missing-username'
+            p Du måste fylla i ditt användarnamn!
+          if error === 'missing-password'
+            p Du måste fylla i ditt lösenord!
+          if error === 'missing-email'
+            p Du måste fylla i din e-postadress!
+          if error === 'error-occured'
+            p Ett ospecifierat fel inträffade. Försök igen.
         button(type='button').bigButton#loginUsernameButton Logga in med användarnamn
-        button(type='button').bigButton#loginEmailButton Logga in med med e-postadress
-        button(type='button').bigButton#wiuButton Walk In Use
+        button(type='button').bigButton#loginEmailButton Logga in med e-postadress
+        // button(type='button').bigButton#wiuButton Walk In Use
         button(type='button').bigButton#forgotButton Glömt lösenordet?
         button(type='button').bigButton#createNewAccount Skapa ett konto
     div#loginForms
-      button(type='button').bigButton#loginBack Tillbaka
       div#loginUsername
+        h3 Logga in med användarnamn
+        div.arrow
         form(action="/loginWithUsername" method="POST")
           label Organisation
             select(name="organization" required)#organization
@@ -44,36 +45,29 @@ block content
           label
             input(type="checkbox" name="rememberMe")#rememberMeU
             | Håll mig inloggad i 30 dagar
-          input(type="hidden" name="redirectUrl" value=redirect)
+          input(type="hidden" id="redirectUrlUser" name="redirectUrl" value=redirect)
           input(type="submit" value="Login").bigButton#loginU
-      div#loginEmail
-        form(action="/loginWithEmail" method="POST")
-          label E-postadress
-            input(type="email" name="email" required placeholder="Email")#emailE
-          label Lösenord
-            input(type="password" name="password" required placeholder="Password")#passwordE
-          label
-            input(type="checkbox" name="rememberMe")#rememberMeE
-            | Håll mig inloggad i 30 dagar
-          input(type="hidden" name="redirectUrl" value=redirect)
-          input(type="submit" value="Login").bigButton#loginE
-      div#wiu
-        form(action="/loginWiu" method="POST")
-          label Organisation
-            select(name="organization" required)#wiuOrganization
-              option(value="" disabled selected) Välj organisation
-              each val in organizations.length ? organizations : [{organization_id: 'null', wiu: true, organization_name: 'Ingen organisation med Walk In Use aktiverat funnen!'}]
-                if(val.wiu)
-                  option(value=val.organization_id)=val.organization_name
-          label Lösenord
-            input(type="password" name="password" required placeholder="Password")#passwordWiu
-          input(type="hidden" name="redirectUrl" value=redirect)
-          input(type="submit" value="Login").bigButton#loginWiu
+      //div#wiu
+        | h3 Walk In Use
+        | div.arrow
+        | form(action="/loginWiu" method="POST")
+          | label Organisation
+            | select(name="organization" required)#wiuOrganization
+              | option(value="" disabled selected) Välj organisation
+              | each val in organizations.length ? organizations : [{organization_id: 'null', wiu: true, organization_name: 'Ingen organisation med Walk In Use aktiverat funnen!'}]
+                | if(val.wiu)
+                  | option(value=val.organization_id)=val.organization_name
+          | label Lösenord
+            | input(type="password" name="password" required placeholder="Password")#passwordWiu
+          | input(type="hidden" id="redirectUrlWiu" name="redirectUrl" value=redirect)
+          | input(type="submit" value="Login").bigButton#loginWiu
+      a#loginBack(href="") Tillbaka
     footer
       ul
         li: a(href='/integrity') Integritetspolicy
         li: a(href='/personal-details') Behandling av personuppgifter
         li: a(href='/cookies') Användning av kakor (cookies)
-        li: a(href='/opensource') Öppen källkod
+        li: a.no-border(href='/opensource') Öppen källkod
+      p © Landstinget Dalarnas Bibliotek och Informationcentral #{new Date().getFullYear()}
 
   script(src='/js/login.js')

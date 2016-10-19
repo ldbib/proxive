@@ -4,40 +4,46 @@ extends layout
 block content
   div.limitedWidth
     div
-      h2 Proxive
+      h2 PROXIVE
       noscript Du måste ha JavaScript aktiverat för att fortsätta!
-      form(action="/signup" method="POST")
-        label Organisation
-          select(name="organization" required autocomplete='off' data-orgfreetext=orgFreetext)#organization
-            option(value="disabled" disabled selected) Välj organisation
-            each val in organizations.length ? organizations : [{organization_id: 'null', organization_name: 'No organization found!'}]
-              option(value=val.organization_id)=val.organization_name
-        div#afterOrgPick
-          label Förnamn
-            input(type="text" name="fname" required placeholder="Förnamn")#fname
-          label Efternamn
-            input(type="text" name="lname" required placeholder="Efternamn")#lname
-          label Arbetsplats
-            input(type="text" name="workplace" required placeholder="Arbetsplats")#workplace
-          label Organisation (fritext)
-            input(type="text" name="organizationFreetext" placeholder="Organisation (fritext)")#organizationFreetext
-          label Användarnamn
-            input(type="text" name="username" required placeholder="Username")#username
-          label Jobbmejl
-            input(type="email" name="email" required placeholder="Jobbmejl")#email
-          label Privatmejl
-            input(type="email" name="emailP" placeholder="Privatmejl")#emailP
-          label Lösenord
-            input(type="password" name="password" required placeholder="Lösenord")#password
-          label Verifiera Lösenord
-            input(type="password" name="passwordV" required placeholder="Lösenord")#passwordV
-          input(type="submit" value='Skapa användare')
+      .formBox
+        h3 Skapa ett konto
+        .arrow
+        form(action="/signup" method="POST")
+          label Organisation
+            select(name="organization" required autocomplete='off' data-orgfreetext=orgFreetext)#organization
+              option(value="disabled" disabled selected) Välj organisation
+              each val in organizations.length ? organizations : [{organization_id: 'null', organization_name: 'No organization found!'}]
+                option(value=val.organization_id)=val.organization_name
+          div#afterOrgPick
+            h4 Genom att registrera en ny användare godkänner du vårt användaravtal nedan.
+            div#signUpAgr
+            label Förnamn
+              input(type="text" name="fname" required placeholder="Förnamn")#fname
+            label Efternamn
+              input(type="text" name="lname" required placeholder="Efternamn")#lname
+            label Arbetsplats
+              input(type="text" name="workplace" required placeholder="Arbetsplats")#workplace
+            label Organisation (fritext)
+              input(type="text" name="organizationFreetext" placeholder="Organisation (fritext)")#organizationFreetext
+            label Användarnamn
+              input(type="text" name="username" required placeholder="Username")#username
+            label Jobbmejl
+              input(type="email" name="email" required placeholder="Jobbmejl")#email
+            label Privatmejl
+              input(type="email" name="emailP" placeholder="Privatmejl")#emailP
+            label Lösenord
+              input(type="password" name="password" required placeholder="Lösenord")#password
+            label Verifiera Lösenord
+              input(type="password" name="passwordV" required placeholder="Lösenord")#passwordV
+            input(type="submit" class="bigButton" value='Skapa användare')
     footer
-      hr
       ul
         li: a(href='/integrity') Integritetspolicy
         li: a(href='/personal-details') Behandling av personuppgifter
         li: a(href='/cookies') Användning av kakor (cookies)
         li: a(href='/opensource') Öppen källkod
 
+  script.
+    var orgData = !{JSON.stringify(organizations)};
   script(src='/js/signup.js')

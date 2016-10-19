@@ -6,22 +6,17 @@ block content
   include ./includes/admin-navbar.pug
 
   div.fullPage
-    div.third
-      table#settingsPicker
-        tbody
-          tr(data-target='#settingsOrganization')
-            td Organisation
-          tr(data-target='#settingsEmail')
-            td E-post
-          tr(data-target='#settingsWIU')
-            td Walk In Use
-          tr(data-target='#settingsWhiteList')
-            td Vitlista
-          tr(data-target='#settingsHomepage')
-            td Hemsidan/vidarebefordring
+    div.padded
+      div#settingsPicker
+        button(type='button' data-target='#settingsOrganization') Organisation
+        button(type='button' data-target='#settingsEmail') E-post
+        button(type='button' data-target='#settingsWIU') Walk In Use
+        button(type='button' data-target='#settingsWhiteList') Vitlista
+        button(type='button' data-target='#settingsHomepage') Hemsidan/vidarebefordring
     div.twothirds.padded#settingsArea
       input(name='id' type='hidden' value=organization.id autocomplete='off')#id
       div#settingsOrganization
+        h2 Organisation
         label
           | Organisationsnamn
           input(name='organizationName' type='text' value=organization.name required autocomplete='off')#organizationName

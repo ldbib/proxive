@@ -1,0 +1,31 @@
+
+extends layout
+
+block content
+  div.limitedWidth
+    div
+      h2 PROXIVE
+      noscript Du måste ha JavaScript aktiverat för att fortsätta!
+      div.formBox
+        div#loginEmail
+          h3 Logga in med e-postadress
+          div.arrow
+          form(action="/loginWithEmail" method="POST")
+            label E-postadress
+              input(type="email" name="email" required placeholder="Email")#emailE
+            label Lösenord
+              input(type="password" name="password" required placeholder="Password")#passwordE
+            label
+              input(type="checkbox" name="rememberMe")#rememberMeE
+              | Håll mig inloggad i 30 dagar
+            input(type="hidden" id="redirectUrlMail" name="redirectUrl" value=redirectUrl)
+            input(type="submit" value="Login").bigButton#loginE
+        a#loginBack(href="") Tillbaka
+    footer
+      ul
+        li: a(href='/integrity') Integritetspolicy
+        li: a(href='/personal-details') Behandling av personuppgifter
+        li: a(href='/cookies') Användning av kakor (cookies)
+        li: a(href='/opensource') Öppen källkod
+
+  script(src='/js/login-email.js')
